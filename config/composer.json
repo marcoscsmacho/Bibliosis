@@ -1,0 +1,20 @@
+{
+    "name": "biblioteca/sistema",
+    "description": "Sistema de gestión para biblioteca",
+    "type": "project",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Biblioteca\\Sistema\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "servicio"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "dompdf/dompdf": "^3.1"
+    }
+}

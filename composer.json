@@ -1,0 +1,20 @@
+{
+    "name": "biblioteca/sistema",
+    "type": "project",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Biblioteca\\Sistema\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "servicio"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "dompdf/dompdf": "^3.1",
+        "phpoffice/phpspreadsheet": "^3.9"
+    }
+}

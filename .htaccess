@@ -1,0 +1,57 @@
+# Activar el motor de reescritura
+RewriteEngine On
+
+# Establecer la ruta base - ajusta esto según tu estructura
+RewriteBase /biblioteca/
+
+# Mantener el acceso a archivos y directorios existentes
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Configuración de páginas de error
+ErrorDocument 404 /biblioteca/404.php
+ErrorDocument 403 /biblioteca/404.php
+ErrorDocument 500 /biblioteca/500.php
+
+# Proteger el archivo .htaccess
+<Files .htaccess>
+    Order allow,deny
+    Deny from all
+</Files>
+
+# Proteger archivos sensibles
+<FilesMatch "^(config\.php|README\.md|composer\.(json|lock))$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Configuraciones de seguridad
+# Desactivar listado de directorios
+Options -Indexes
+
+# Configurar zona horaria por defecto
+php_value date.timezone "America/Mexico_City"
+
+# Configuración de caché para mejora de rendimiento
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType image/jpg "access plus 1 year"
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/gif "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+</IfModule>
+
+# Comprimir archivos para mejorar el rendimiento
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/plain
+    AddOutputFilterByType DEFLATE text/html
+    AddOutputFilterByType DEFLATE text/xml
+    AddOutputFilterByType DEFLATE text/css
+    AddOutputFilterByType DEFLATE application/xml
+    AddOutputFilterByType DEFLATE application/xhtml+xml
+    AddOutputFilterByType DEFLATE application/rss+xml
+    AddOutputFilterByType DEFLATE application/javascript
+    AddOutputFilterByType DEFLATE application/x-javascript
+</IfModule>
