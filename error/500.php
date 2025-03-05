@@ -19,7 +19,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/biblioteca/modules/header.php';
         <h1 class="text-6xl font-bold text-purple-600 mb-4">500</h1>
         <h2 class="text-2xl font-semibold text-gray-800 mb-4">¡Error Interno del Servidor!</h2>
         <p class="text-gray-600 mb-8">
-            Lo sentimos, estamos experimentando dificultades técnicas en este momento. Nuestro equipo ha sido notificado y está trabajando para resolver el problema.
+            Lo sentimos, estamos experimentando dificultades técnicas en este momento. estamos trabajando para resolver el problema.
         </p>
 
         <!-- Botones de acción -->
