@@ -40,17 +40,17 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/biblioteca/modules/header.php';
         <div class="mt-12 text-gray-600">
             <p class="mb-4">Mientras tanto, podrías:</p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center text-sm">
-                <a href="<?php echo $basePath; ?>../vistas/catalogo/index.php" 
+            <a href="/biblioteca/vistas/catalogo/index.php" 
                    class="flex items-center justify-center text-purple-600 hover:text-purple-800">
                     <i class="fas fa-book mr-2"></i>
                     Explorar el catálogo
                 </a>
-                <a href="<?php echo $basePath; ?>../vistas/prestamo/index.php" 
+                <a href="/biblioteca/vistas/prestamo/index.php"  
                    class="flex items-center justify-center text-purple-600 hover:text-purple-800">
                     <i class="fas fa-bookmark mr-2"></i>
                     Ver tus préstamos
                 </a>
-                <a href="<?php echo $basePath; ?>ayuda.php" 
+                <a href="/biblioteca/ayuda.php" 
                    class="flex items-center justify-center text-purple-600 hover:text-purple-800">
                     <i class="fas fa-question-circle mr-2"></i>
                     Buscar ayuda
