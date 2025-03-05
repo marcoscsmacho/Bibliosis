@@ -6,7 +6,7 @@ require_once '../modules/header.php';
 try {
     $sql = "
         SELECT l.*, a.nombre as autor_nombre, a.apellido as autor_apellido,
-               g.nombre as genero_nombre
+            g.nombre as genero_nombre
         FROM libros l
         JOIN autores a ON l.id_autor = a.id_autor
         JOIN generos g ON l.id_genero = g.id_genero
@@ -23,7 +23,7 @@ try {
  }
  ?>
  
-?>
+
 
 <!-- Banner de categoría -->
 <div class="bg-gradient-to-r from-blue-600 to-cyan-600 text-white">

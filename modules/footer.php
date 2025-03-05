@@ -18,7 +18,7 @@
             <div>
                 <h3 class="text-lg font-semibold mb-4"><i class="fas fa-share-alt"></i> Síguenos</h3>
                 <div class="flex space-x-4">
-                    <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-facebook"></i></a>
+                    <a href="facebook.php" class="text-gray-400 hover:text-white"><i class="fab fa-facebook"></i></a>
                     <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-twitter"></i></a>
                     <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-instagram"></i></a>
                 </div>
