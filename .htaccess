@@ -9,8 +9,8 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 
 # Configuración de páginas de error
-ErrorDocument 404 /biblioteca/404.php
-ErrorDocument 403 /biblioteca/404.php
+ErrorDocument 404 /biblioteca/error/404.php
+ErrorDocument 403 /biblioteca/error/404.php
 ErrorDocument 500 /biblioteca/500.php
 
 # Proteger el archivo .htaccess

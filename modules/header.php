@@ -2,23 +2,15 @@
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
-// Determinar la ruta base
+
+// Determinar la ruta base de forma robusta
 function getBasePath() {
-    $currentPath = $_SERVER['SCRIPT_NAME'];
-    $pathInfo = pathinfo($currentPath);
-    $hostName = $_SERVER['HTTP_HOST'];
-    $protocol = strtolower(substr($_SERVER['SERVER_PROTOCOL'],0,5))=='https'?'https':'http';
-    
-    // Contar niveles de directorios desde la raíz
-    $pathLevels = substr_count($pathInfo['dirname'], '/') - 1;
-    if ($pathLevels > 0) {
-        return str_repeat('../', $pathLevels);
-    }
-    return './';
+    // Definir la raíz de la aplicación explícitamente
+    return '/biblioteca/';
 }
 
 $basePath = getBasePath();
-require_once $basePath . 'config/config.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/biblioteca/config/config.php';
 
 // Determinar el título de la página si no está definido
 if (!isset($pageTitle)) {
