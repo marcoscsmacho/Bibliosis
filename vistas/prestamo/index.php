@@ -269,4 +269,4 @@ try {
     <?php endif; ?>
 </div>
 
-<?php require_once $basePath . 'modules/footer.php'; ?>
+<?php require_once '../../modules/footer.php'; ?>

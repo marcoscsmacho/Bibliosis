@@ -15,6 +15,7 @@
     "minimum-stability": "stable",
     "require": {
         "dompdf/dompdf": "^3.1",
-        "phpoffice/phpspreadsheet": "^3.9"
+        "phpoffice/phpspreadsheet": "^3.9",
+        "phpmailer/phpmailer": "^6.9"
     }
 }

@@ -10,7 +10,7 @@
             </div>
             <div>
                 <h3 class="text-lg font-semibold mb-4"><i class="fas fa-phone"></i> Contacto</h3>
-                <a href="#" class="text-gray-400"><i class="fas fa-envelope"></i> contacto@biblioteca.com</a>
+                <a href="bibliosissoporte@gmail.com" class="text-gray-400"><i class="fas fa-envelope"></i> bibliosissoporte@gmail.com</a>
                 <p></p>
               
                 <a href="#" class="text-gray-400"><i class="fas fa-map-marker-alt"></i> Dirección de la biblioteca</a>
