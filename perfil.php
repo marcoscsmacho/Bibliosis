@@ -139,7 +139,7 @@ require_once 'modules/header.php';
             </div>
         <?php endif; ?>
 
-        <form method="POST" class="space-y-6">
+        <form method="POST" class="space-y-6" id="profileForm">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                     <label class="block text-gray-700 text-sm font-bold mb-2">
@@ -216,7 +216,9 @@ require_once 'modules/header.php';
                         </label>
                         <input type="password" 
                                name="password_actual"
+                               id="password_actual"
                                class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600">
+                        <div id="current-password-feedback" class=""></div>
                     </div>
 
                     <div>
@@ -225,7 +227,12 @@ require_once 'modules/header.php';
                         </label>
                         <input type="password" 
                                name="password_nuevo"
+                               id="password_nuevo"
                                class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600">
+                        <div id="new-password-feedback" class=""></div>
+                        <p class="text-sm text-gray-500 mt-1">
+                            La contraseña debe tener al menos 8 caracteres.
+                        </p>
                     </div>
                 </div>
             </div>
@@ -236,6 +243,7 @@ require_once 'modules/header.php';
                     Cancelar
                 </a>
                 <button type="submit" 
+                        id="submitButton"
                         class="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700">
                     Guardar Cambios
                 </button>
@@ -243,5 +251,7 @@ require_once 'modules/header.php';
         </form>
     </div>
 </div>
+
+<script src="<?php echo $basePath; ?>js/profile-validation.js"></script>
 
 <?php require_once 'modules/footer.php'; ?>

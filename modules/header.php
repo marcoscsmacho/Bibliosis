@@ -17,6 +17,7 @@ if (!isset($pageTitle)) {
     $pageTitle = 'BiblioSis';
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -335,6 +336,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
-
+<?php require_once 'modules/privacy-notice.php'; ?>
 </body>
 </html>
