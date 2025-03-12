@@ -336,6 +336,33 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
-<?php require_once 'modules/privacy-notice.php'; ?>
+<script>
+    // Funcionalidad del menú móvil
+    document.addEventListener('DOMContentLoaded', function() {
+        const mobileMenuButton = document.getElementById('mobileMenuButton');
+        const closeMobileMenu = document.getElementById('closeMobileMenu');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        if (mobileMenuButton && mobileMenu) {
+            mobileMenuButton.addEventListener('click', function() {
+                mobileMenu.classList.remove('hidden');
+                document.body.classList.add('overflow-hidden'); // Prevenir scroll
+            });
+            
+            closeMobileMenu.addEventListener('click', function() {
+                mobileMenu.classList.add('hidden');
+                document.body.classList.remove('overflow-hidden');
+            });
+            
+            // Cerrar al hacer clic fuera del menú
+            mobileMenu.addEventListener('click', function(e) {
+                if (e.target === mobileMenu) {
+                    mobileMenu.classList.add('hidden');
+                    document.body.classList.remove('overflow-hidden');
+                }
+            });
+        }
+    });
+</script>
 </body>
 </html>
