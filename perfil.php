@@ -1,8 +1,8 @@
 <?php
 // perfil.php
 session_start();
-require_once 'config/config.php';
 
+require_once 'modules/header.php';
 // Verificar si el usuario está logueado
 if (!isLoggedIn()) {
     header('Location: login.php');

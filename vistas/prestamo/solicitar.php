@@ -44,24 +44,24 @@ try {
         throw new Exception("Este libro no está disponible actualmente.");
     }
 
-    // Verificar si el usuario ya tiene este libro prestado
+    // Verificar si el usuario ya tiene este libro prestado o pendiente
     $stmt = $pdo->prepare("
         SELECT COUNT(*) FROM prestamos 
-        WHERE id_libro = ? AND id_cliente = ? AND estado = 'Prestado'
+        WHERE id_libro = ? AND id_cliente = ? AND estado IN ('Pendiente', 'Aprobado', 'Prestado')
     ");
     $stmt->execute([$id_libro, $_SESSION['user_id']]);
     if ($stmt->fetchColumn() > 0) {
-        throw new Exception("Ya tienes un ejemplar de este libro prestado.");
+        throw new Exception("Ya tienes una solicitud o préstamo activo para este libro.");
     }
 
-    // Verificar cantidad de préstamos activos del usuario
+    // Verificar cantidad de préstamos activos y pendientes del usuario
     $stmt = $pdo->prepare("
         SELECT COUNT(*) FROM prestamos 
-        WHERE id_cliente = ? AND estado = 'Prestado'
+        WHERE id_cliente = ? AND estado IN ('Pendiente', 'Aprobado', 'Prestado')
     ");
     $stmt->execute([$_SESSION['user_id']]);
     if ($stmt->fetchColumn() >= 3) {
-        throw new Exception("Has alcanzado el límite máximo de préstamos (3).");
+        throw new Exception("Has alcanzado el límite máximo de préstamos/solicitudes (3).");
     }
 
     // Procesar la solicitud de préstamo
@@ -71,31 +71,24 @@ try {
         try {
             $pdo->beginTransaction();
 
-            // Registrar el préstamo
+            // Registrar el préstamo como PENDIENTE
             $stmt = $pdo->prepare("
-                INSERT INTO prestamos (id_libro, id_cliente, fecha_devolucion_esperada, estado)
-                VALUES (?, ?, DATE_ADD(CURRENT_DATE, INTERVAL ? DAY), 'Prestado')
+                INSERT INTO prestamos (id_libro, id_cliente, fecha_devolucion_esperada, estado, observaciones)
+                VALUES (?, ?, DATE_ADD(CURRENT_DATE, INTERVAL ? DAY), 'Pendiente', ?)
             ");
-            $stmt->execute([$id_libro, $_SESSION['user_id'], $dias_prestamo]);
-
-            // Actualizar disponibilidad del libro
-            $stmt = $pdo->prepare("
-                UPDATE libros 
-                SET cantidad_disponible = cantidad_disponible - 1,
-                    estado = CASE 
-                        WHEN cantidad_disponible - 1 = 0 THEN 'No Disponible'
-                        ELSE estado 
-                    END
-                WHERE id_libro = ?
-            ");
-            $stmt->execute([$id_libro]);
+            $stmt->execute([
+                $id_libro, 
+                $_SESSION['user_id'], 
+                $dias_prestamo,
+                "Solicitud pendiente de aprobación por personal de biblioteca"
+            ]);
 
             $pdo->commit();
-            $mensaje = "¡Préstamo realizado con éxito! Puedes recoger el libro en la biblioteca.";
+            $mensaje = "¡Solicitud enviada con éxito! Tu préstamo está pendiente de aprobación por el personal de la biblioteca. Recibirás una notificación cuando sea aprobado.";
 
         } catch (Exception $e) {
             $pdo->rollBack();
-            $error = "Error al procesar el préstamo: " . $e->getMessage();
+            $error = "Error al procesar la solicitud: " . $e->getMessage();
         }
     }
 
@@ -194,7 +187,7 @@ try {
                             <div class="flex items-center space-x-4">
                                 <button type="submit"
                                         class="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2">
-                                    Confirmar Préstamo
+                                    Enviar Solicitud
                                 </button>
                                 
                                 <a href="<?php echo $basePath; ?>vistas/catalogo/index.php"
@@ -205,7 +198,7 @@ try {
                         </form>
 
                         <div class="mt-6 text-sm text-gray-500">
-                            <p><i class="fas fa-info-circle mr-2"></i>Al confirmar el préstamo, tendrás que recoger el libro en la biblioteca dentro de las próximas 24 horas.</p>
+                            <p><i class="fas fa-info-circle mr-2"></i>Tu solicitud será revisada por el personal de la biblioteca. Recibirás una notificación cuando sea aprobada.</p>
                         </div>
                     <?php endif; ?>
                 </div>
@@ -215,6 +208,3 @@ try {
 </div>
 
 <?php require_once '../../modules/footer.php'; ?>
-
-
-

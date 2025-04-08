@@ -12,7 +12,7 @@
                 <h3 class="text-lg font-semibold mb-4"><i class="fas fa-phone"></i> Contacto</h3>
                 <a href="mailto:bibliosissoporte@gmail.com" class="text-gray-400"><i class="fas fa-envelope"></i> bibliosissoporte@gmail.com</a>
                 <p class="text-gray-400 mt-2"><i class="fas fa-phone-alt"></i> (123) 456-7890</p>
-                <a href="#" class="text-gray-400 mt-2 block"><i class="fas fa-map-marker-alt"></i> Av. Tancoyolillo S/N, Col, Villas Jalpan QRO</a>
+                <h3 class="text-gray-400 mt-2 block"><i class="fas fa-map-marker-alt"></i> Av. Tancoyolillo S/N, Col, Villas Jalpan QRO</h3>
             </div>
             <div>
                 <h3 class="text-lg font-semibold mb-4"><i class="fas fa-share-alt"></i> Síguenos</h3>

@@ -1,5 +1,6 @@
 <?php
 // vistas/prestamos/index.php
+ob_start(); // Inicia el buffer de salida
 session_start();
 $pageTitle = 'Mis Préstamos - BiblioSis';
 require_once '../../modules/header.php';
@@ -7,7 +8,7 @@ require_once '../../modules/header.php';
 // Verificar que el usuario esté logueado
 if (!isLoggedIn()) {
     $_SESSION['error'] = "Debes iniciar sesión para ver tus préstamos.";
-    header('Location: ' . $basePath . 'login.php');
+    echo '<script>window.location.href = "' . $basePath . 'login.php";</script>';
     exit;
 }
 
@@ -93,6 +94,12 @@ try {
             </ol>
         </nav>
     </div>
+</div>
+
+
+<div class="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4 mb-6" role="alert">
+    <p class="font-bold">Información importante</p>
+    <p>Para devolver un libro, debe llevarlo físicamente a la biblioteca. El personal de la biblioteca procesará su devolución.</p>
 </div>
 
 <!-- Contenido principal -->
@@ -249,16 +256,15 @@ try {
 
                             <div class="flex flex-wrap gap-2">
                                 <a href="<?php echo $basePath; ?>vistas/libro/detalle.php?id=<?php echo $prestamo['id_libro']; ?>" 
-                                   class="inline-flex items-center text-purple-600 hover:text-purple-800">
+                                class="inline-flex items-center text-purple-600 hover:text-purple-800">
                                     <i class="fas fa-info-circle mr-2"></i>
                                     Ver libro
                                 </a>
                                 <?php if ($prestamo['estado'] === 'Prestado'): ?>
-                                    <a href="<?php echo $basePath; ?>vistas/prestamo/devolver.php?id=<?php echo $prestamo['id_prestamo']; ?>" 
-                                       class="inline-flex items-center text-green-600 hover:text-green-800">
-                                        <i class="fas fa-undo mr-2"></i>
-                                        Devolver
-                                    </a>
+                                    <span class="inline-flex items-center text-gray-600">
+                                        <i class="fas fa-info-circle mr-2"></i>
+                                            Para devolver, lleve el libro a la biblioteca
+                                        </span>
                                 <?php endif; ?>
                             </div>
                         </div>
@@ -269,4 +275,5 @@ try {
     <?php endif; ?>
 </div>
 
-<?php require_once '../../modules/footer.php'; ?>
+   
+<?php require_once '../../modules/footer.php';  ob_end_flush();?>

@@ -1,4 +1,5 @@
 <?php
+
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -46,7 +47,7 @@ if (!isset($pageTitle)) {
         }
     </style>
 </head>
-<body class="bg-gray-50">
+<body class="bg-gray-50" data-base-path="<?php echo $basePath; ?>">
     <nav class="bg-white shadow-lg">
         <div class="max-w-7xl mx-auto px-4">
             <div class="flex items-center justify-between h-16">
@@ -146,18 +147,18 @@ if (!isset($pageTitle)) {
                 </div>
 
                 <!-- Buscador -->
-        <div class="flex-1 max-w-lg mx-6">
-        <div class="relative">
-            <input type="search" 
-                    id="search-input"
-                    class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-600"
-                    placeholder="¿Qué libro estás buscando?">
-            <div class="absolute inset-y-0 right-0 flex items-center pr-3">
-                <i class="fas fa-search text-gray-400"></i>
-            </div>
-            <div id="search-results" class="hidden absolute left-0 right-0 mt-1 bg-white border rounded-lg shadow-lg z-50 max-h-96 overflow-y-auto"></div>
-        </div>
-        </div>
+                <div class="flex-1 max-w-lg mx-6">
+                    <div class="relative">
+                        <input type="search" 
+                                id="search-input"
+                                class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-600"
+                                placeholder="¿Qué libro estás buscando?">
+                        <div class="absolute inset-y-0 right-0 flex items-center pr-3">
+                            <i class="fas fa-search text-gray-400"></i>
+                        </div>
+                        <div id="search-results" class="absolute left-0 right-0 mt-1 bg-white border rounded-lg shadow-lg z-50 max-h-96 overflow-y-auto"></div>
+                    </div>
+                </div>
 
                 <!-- Menú derecho -->
                 <div class="flex items-center gap-4">
@@ -209,6 +210,32 @@ if (!isset($pageTitle)) {
                             </a>
                         <?php endif; ?>
                     </div>
+
+                    <!-- Botón del carrito con contador -->
+<?php if (isLoggedIn()): ?>
+    <?php
+    // Obtener la cantidad de elementos en el carrito
+    $count_carrito = 0;
+    try {
+        $stmt = $pdo->prepare("SELECT COUNT(*) FROM carrito_prestamos WHERE id_cliente = ?");
+        $stmt->execute([$_SESSION['user_id']]);
+        $count_carrito = $stmt->fetchColumn();
+    } catch (Exception $e) {
+        // Silenciar errores
+    }
+    ?>
+    <a href="<?php echo $basePath; ?>vistas/carrito/index.php" class="relative inline-block text-gray-600 hover:text-purple-700">
+        <i class="fas fa-shopping-cart text-xl"></i>
+        <?php if ($count_carrito > 0): ?>
+            <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
+                <?php echo $count_carrito; ?>
+            </span>
+        <?php endif; ?>
+    </a>
+<?php endif; ?>
+
+<!-- Fin de la modificación del header -->
+
                 </div>
             </div>
         </div>
@@ -264,105 +291,9 @@ if (!isset($pageTitle)) {
             });
         }
     });
-  
+    </script>
 
-document.addEventListener('DOMContentLoaded', function() {
-    const searchInput = document.getElementById('search-input');
-    const searchResults = document.getElementById('search-results');
-    let searchTimeout;
+    <!-- Script de búsqueda global -->
+    <script src="<?php echo $basePath; ?>js/global-search.js"></script>
 
-    searchInput.addEventListener('input', function() {
-        clearTimeout(searchTimeout);
-        const query = this.value.trim();
-        
-        if (query.length < 2) {
-            searchResults.style.display = 'none';
-            return;
-        }
-
-        // Esperar 300ms antes de hacer la búsqueda
-            searchTimeout = setTimeout(() => {
-            fetch('ajax/search_ajax.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: 'query=' + encodeURIComponent(query)
-            })
-            .then(response => response.json())
-            .then(data => {
-                searchResults.innerHTML = '';
-                if (data.length > 0) {
-                    data.forEach(item => {
-                        const div = document.createElement('div');
-                        div.className = 'p-2 hover:bg-gray-100 cursor-pointer';
-                        div.innerHTML = `
-                            <div class="flex items-center space-x-3">
-                                ${item.imagen_portada ? 
-                                    `<img src="${item.imagen_portada}" class="w-10 h-14 object-cover">` :
-                                    `<div class="w-10 h-14 bg-gray-200 flex items-center justify-center">
-                                        <i class="fas fa-book text-gray-400"></i>
-                                    </div>`
-                                }
-                                <div>
-                                    <div class="font-medium">${item.titulo}</div>
-                                    <div class="text-sm text-gray-600">${item.autor_nombre} ${item.autor_apellido}</div>
-                                </div>
-                            </div>
-                        `;
-                        
-                        div.addEventListener('click', () => {
-                            window.location.href = `vistas/libro/detalle.php?id=${item.id_libro}`;
-                        });
-                        
-                        searchResults.appendChild(div);
-                    });
-                    searchResults.style.display = 'block';
-                } else {
-                    searchResults.innerHTML = '<div class="p-2 text-gray-500">No se encontraron resultados</div>';
-                    searchResults.style.display = 'block';
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-        }, 300);
-    });
-
-    document.addEventListener('click', function(e) {
-        if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
-            searchResults.style.display = 'none';
-        }
-    });
-});
-</script>
-<script>
-    // Funcionalidad del menú móvil
-    document.addEventListener('DOMContentLoaded', function() {
-        const mobileMenuButton = document.getElementById('mobileMenuButton');
-        const closeMobileMenu = document.getElementById('closeMobileMenu');
-        const mobileMenu = document.getElementById('mobileMenu');
-        
-        if (mobileMenuButton && mobileMenu) {
-            mobileMenuButton.addEventListener('click', function() {
-                mobileMenu.classList.remove('hidden');
-                document.body.classList.add('overflow-hidden'); // Prevenir scroll
-            });
-            
-            closeMobileMenu.addEventListener('click', function() {
-                mobileMenu.classList.add('hidden');
-                document.body.classList.remove('overflow-hidden');
-            });
-            
-            // Cerrar al hacer clic fuera del menú
-            mobileMenu.addEventListener('click', function(e) {
-                if (e.target === mobileMenu) {
-                    mobileMenu.classList.add('hidden');
-                    document.body.classList.remove('overflow-hidden');
-                }
-            });
-        }
-    });
-</script>
-</body>
-</html>
+<?php require_once $_SERVER['DOCUMENT_ROOT'] . '/biblioteca/modules/privacy-notice.php'; ?>

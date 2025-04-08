@@ -2,7 +2,7 @@
 // vistas/catalogo/index.php
 session_start();
 $pageTitle = 'Catálogo - BiblioSis';
-require_once '../../config/config.php';
+
 require_once '../../modules/header.php';
 
 try {

@@ -73,22 +73,12 @@ if (isset($_POST['devolver']) && $prestamo['estado'] == 'Prestado') {
             UPDATE prestamos 
             SET estado = 'Devuelto',
                 fecha_devolucion_real = CURRENT_DATE,
-                observaciones = CONCAT(observaciones, '\nDevuelto el ', CURRENT_DATE)
+                observaciones = CONCAT(IFNULL(observaciones, ''), '\nDevuelto el ', CURRENT_DATE)
             WHERE id_prestamo = ?
         ");
         $stmt->execute([$id_prestamo]);
 
-        // Actualizar libro
-        $stmt = $pdo->prepare("
-            UPDATE libros 
-            SET cantidad_disponible = cantidad_disponible + 1,
-                estado = CASE 
-                    WHEN cantidad_disponible + 1 > 0 THEN 'Disponible'
-                    ELSE estado 
-                END
-            WHERE id_libro = ?
-        ");
-        $stmt->execute([$prestamo['id_libro']]);
+        // No actualizamos el libro manualmente - el trigger after_prestamo_update lo hará automáticamente
 
         $pdo->commit();
         header('Location: ' . $_SERVER['PHP_SELF'] . '?id=' . $id_prestamo . '&mensaje=Préstamo devuelto exitosamente');
@@ -136,7 +126,7 @@ $pageTitle = "Ver Préstamo - BiblioSis";
                     <i class="fas fa-chart-bar mr-3"></i>
                     Reportes
                 </a>
-                <a href="index.php" class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-700">
+                <a href="../bibliotecarios/index.php" class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-700">
                     <i class="fas fa-users-cog mr-3"></i>Bibliotecarios
                 </a>
                 <a href="../configuracion/" class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-700">

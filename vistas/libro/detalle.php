@@ -121,6 +121,17 @@ try {
                             <i class="fas fa-book-reader mr-2"></i>
                             Solicitar Préstamo
                         </a>
+                    <?php if ($libro['cantidad_disponible'] > 0 && isset($_SESSION['user_id'])): ?>
+                        <form action="<?php echo $basePath; ?>agregar_al_carrito.php" method="POST" class="mt-2">
+                        <input type="hidden" name="id_libro" value="<?php echo $libro['id_libro']; ?>">
+                        <input type="hidden" name="redirect" value="<?php echo $basePath; ?>vistas/libro/detalle.php?id=<?php echo $libro['id_libro']; ?>">
+                        <button type="submit" 
+                        class="block w-full bg-yellow-500 text-white text-center px-4 py-2 rounded-lg hover:bg-yellow-600 transition-colors">
+                        <i class="fas fa-cart-plus mr-2"></i>
+                                Agregar al carrito
+                            </button>
+                            </form>
+                    <?php endif; ?>
                     <?php elseif (!isset($_SESSION['user_id'])): ?>
                         <a href="<?php echo $basePath; ?>login.php" 
                            class="block w-full bg-gray-600 text-white text-center px-4 py-2 rounded-lg hover:bg-gray-700 transition-colors">

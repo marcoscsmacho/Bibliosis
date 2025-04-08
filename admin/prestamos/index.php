@@ -109,12 +109,12 @@ $pageTitle = "Gestión de Préstamos - BiblioSis";
                     <i class="fas fa-handshake mr-3"></i>
                     Préstamos
                 </a>
-                <a href="../usuarios/index.php" class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-700">
+                <a href="../usuarios/" class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-700">
                     <i class="fas fa-users mr-3"></i>
                     Usuarios
                 </a>
                 <?php if (isAdmin()): ?>
-                <a href="../reportes/index.php" class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-700">
+                <a href="../reportes/" class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-700">
                     <i class="fas fa-chart-bar mr-3"></i>
                     Reportes
                 </a>
@@ -135,9 +135,24 @@ $pageTitle = "Gestión de Préstamos - BiblioSis";
                 <!-- Header -->
                 <div class="flex justify-between items-center mb-8">
                     <h1 class="text-2xl font-bold">Gestión de Préstamos</h1>
-                    <a href="agregar.php" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
-                        <i class="fas fa-plus mr-2"></i>Nuevo Préstamo
-                    </a>
+                    <div class="flex space-x-3">
+                        <?php
+                        // Obtener conteo de solicitudes pendientes
+                        $stmt = $pdo->query("SELECT COUNT(*) FROM prestamos WHERE estado = 'Pendiente'");
+                        $pendientes = $stmt->fetchColumn();
+                        ?>
+                        <a href="aprobar.php" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 flex items-center">
+                            <i class="fas fa-tasks mr-2"></i>Aprobaciones
+                            <?php if ($pendientes > 0): ?>
+                                <span class="ml-2 bg-red-600 text-white text-xs rounded-full w-6 h-6 flex items-center justify-center">
+                                    <?php echo $pendientes; ?>
+                                </span>
+                            <?php endif; ?>
+                        </a>
+                        <a href="agregar.php" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
+                            <i class="fas fa-plus mr-2"></i>Nuevo Préstamo
+                        </a>
+                    </div>
                 </div>
 
                 <?php if (isset($mensaje)): ?>
@@ -159,9 +174,10 @@ $pageTitle = "Gestión de Préstamos - BiblioSis";
                             <label class="block text-sm font-medium text-gray-700 mb-1">Estado</label>
                             <select name="estado" class="rounded border-gray-300 shadow-sm focus:ring-purple-500 focus:border-purple-500">
                                 <option value="todos" <?php echo $estado === 'todos' ? 'selected' : ''; ?>>Todos</option>
+                                <option value="Pendiente" <?php echo $estado === 'Pendiente' ? 'selected' : ''; ?>>Pendientes</option>
                                 <option value="Prestado" <?php echo $estado === 'Prestado' ? 'selected' : ''; ?>>Prestado</option>
                                 <option value="Devuelto" <?php echo $estado === 'Devuelto' ? 'selected' : ''; ?>>Devuelto</option>
-                                <option value="Atrasado" <?php echo $estado === 'Atrasado' ? 'selected' : ''; ?>>Atrasado</option>
+                                <option value="Rechazado" <?php echo $estado === 'Rechazado' ? 'selected' : ''; ?>>Rechazado</option>
                             </select>
                         </div>
                         <div>
@@ -256,9 +272,23 @@ $pageTitle = "Gestión de Préstamos - BiblioSis";
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <span class="px-2 py-1 text-xs rounded-full <?php 
-                                        echo $prestamo['estado'] === 'Prestado' ? 'bg-yellow-100 text-yellow-800' : 
-                                            ($prestamo['estado'] === 'Devuelto' ? 'bg-green-100 text-green-800' : 
-                                            'bg-red-100 text-red-800'); ?>">
+                                        switch ($prestamo['estado']) {
+                                            case 'Pendiente':
+                                                echo 'bg-yellow-100 text-yellow-800';
+                                                break;
+                                            case 'Prestado':
+                                                echo 'bg-green-100 text-green-800';
+                                                break;
+                                            case 'Devuelto':
+                                                echo 'bg-blue-100 text-blue-800';
+                                                break;
+                                            case 'Rechazado':
+                                                echo 'bg-red-100 text-red-800';
+                                                break;
+                                            default:
+                                                echo 'bg-gray-100 text-gray-800';
+                                        }
+                                    ?>">
                                         <?php echo htmlspecialchars($prestamo['estado']); ?>
                                     </span>
                                 </td>
@@ -277,12 +307,18 @@ $pageTitle = "Gestión de Préstamos - BiblioSis";
                                             </button>
                                         </form>
                                         <?php endif; ?>
-                                        <?php if (isAdmin()): ?>
+                                        <?php if ($prestamo['estado'] === 'Pendiente'): ?>
+                                        <a href="aprobar.php?filtro=pendientes" 
+                                           class="text-yellow-500 hover:text-yellow-700">
+                                            <i class="fas fa-check-circle"></i>
+                                        </a>
+                                        <?php endif; ?>
+                                        <!--<?php if (isAdmin()): ?>
                                         <a href="editar.php?id=<?php echo $prestamo['id_prestamo']; ?>" 
                                            class="text-yellow-500 hover:text-yellow-700">
                                             <i class="fas fa-edit"></i>
                                         </a>
-                                        <?php endif; ?>
+                                        <?php endif; ?> -->
                                     </div>
                                 </td>
                             </tr>

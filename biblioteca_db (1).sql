@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 07-02-2025 a las 07:20:58
+-- Tiempo de generación: 03-04-2025 a las 06:49:15
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.1.25
 
@@ -51,6 +51,26 @@ INSERT INTO `autores` (`id_autor`, `nombre`, `apellido`, `biografia`, `fecha_nac
 (15, 'Nicholas', 'Sparks', 'Autor bestseller de novelas románticas', '1965-12-31', 'Estadounidense', NULL),
 (16, 'Laura', 'Gallego', 'Escritora española de literatura fantástica', '1977-10-11', 'Española', NULL),
 (17, 'Mario', 'Benedetti', 'Escritor uruguayo destacado en poesía y narrativa', '1920-09-14', 'Uruguaya', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `carrito_prestamos`
+--
+
+CREATE TABLE `carrito_prestamos` (
+  `id_carrito` int(11) NOT NULL,
+  `id_cliente` int(11) NOT NULL,
+  `id_libro` int(11) NOT NULL,
+  `fecha_agregado` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `carrito_prestamos`
+--
+
+INSERT INTO `carrito_prestamos` (`id_carrito`, `id_cliente`, `id_libro`, `fecha_agregado`) VALUES
+(16, 1, 29, '2025-04-02 22:59:40');
 
 -- --------------------------------------------------------
 
@@ -118,7 +138,8 @@ INSERT INTO `clientes` (`id_cliente`, `nombre`, `apellido`, `email`, `telefono`,
 (5, 'Joel', 'cano', 'sss@g.com', '4412345693', 'ahuacatlan de guadalupe', 'img/usuarios/679ea0f1356ea.jpg', '2025-02-01 22:23:45', 'Activo', '$2y$10$/UnCWWwXHtC6TZU8vdFr3OzFq4U5LGuSV7Ufe789dK.d02b/WdBAq'),
 (6, 'Juann', 'Pérez', 'juan@ejemplo.com', '1234567890', 'Calle Principal #123', NULL, '2025-02-04 02:46:46', 'Activo', '$2y$10$l7Nr.myHwhFtk0xV5GPmuuNoxzBzW2RhGVQpPxPeaq6W9b/ooC/8.'),
 (7, 'Mario', 'Alcaraz', '1sss@g.com', '0000012346', 'Colonia ermita CD México', 'img/usuarios/67a1aeb45217b.jpg', '2025-02-04 06:07:48', 'Activo', '$2y$10$Dapd8TFpRfovpfB9g5s.R.XfX4EFPz5FD5pNB5.JWulBNi8ULxeoi'),
-(8, 'cris', 'cris', 'cris@gmail.com', '1234567894', 'sadasdasdartghdfg', NULL, '2025-02-04 17:14:01', 'Activo', '$2y$10$RqSgf67LQWfvnRN9ZtGfCOUljb0bNtXebMYJ017DmfWuc/Jp1IBhq');
+(9, 'marcos', 'camacho', 'camachomarcos590@gmail.com', '4411231647', 'jalpan de serra', 'img/usuarios/67edbfc67eea4.jpg', '2025-03-05 17:13:21', 'Activo', '$2y$10$O7Bg352TRGayRLdMQAf8EO5RbSf1Aek9WJgRN8GwZbCgYEN6pfTZ2'),
+(10, '1', '1', '1@gmail.com', '4411231647', '', 'img/usuarios/67eccfa2202b9.jpg', '2025-04-02 04:42:27', 'Activo', '$2y$10$17NvmuK9YqBZDTX5IzL3s.ZRNwXmguFEkRPvKyiHSg4nGXO0OE2R2');
 
 -- --------------------------------------------------------
 
@@ -142,7 +163,7 @@ CREATE TABLE `configuracion` (
 --
 
 INSERT INTO `configuracion` (`id`, `nombre_biblioteca`, `email_contacto`, `telefono_contacto`, `dias_prestamo`, `max_prestamos_usuario`, `multa_dia_retraso`, `fecha_actualizacion`) VALUES
-(1, 'BiblioSis', 'contacto@bibliotech.com', '555-0100', 7, 3, 10.00, '2025-02-01 23:27:39');
+(1, 'BiblioSis', 'bibliosissoporte@gmail.com', '555-0100', 7, 3, 10.00, '2025-03-07 04:11:08');
 
 -- --------------------------------------------------------
 
@@ -223,14 +244,14 @@ INSERT INTO `libros` (`id_libro`, `titulo`, `id_autor`, `id_editorial`, `id_gene
 (2, 'El Aleph', 2, 3, 1, 2, '9788437604848', '1949', 2, 1, 'img/libros/679e97d6b1778.jpg', 'Dieciocho relatos filosóficos y sobrenaturales entre los que se encuentra uno de los relatos más admirados en el campo de la literatura: El Aleph. La mayoría de los cuentos reunidos en este libro pertenecen al género fantástico. Algunos surgieron a partir de crónicas policiales, de pinturas o simplemente de la visión de algún conventillo; otro explora el efecto que la inmortalidad causaría en los hombres; hay una glosa al Martín Fierro, sueños sobre la identidad personal y fantasías del tiempo.', 'Disponible', '2025-01-31 18:02:11'),
 (3, 'La casa de los espíritus', 3, 2, 1, 2, '9780525433477', '1982', 4, 3, 'img/libros/67a15904dcf01.jpg', '&lt;br /&gt;\r\n&lt;b&gt;Deprecated&lt;/b&gt;:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in &lt;b&gt;C:xampphtdocsbibliotecaadminlibroseditar.php&lt;/b&gt; on line &lt;b&gt;285&lt;/b&gt;&lt;br /&gt;', 'Disponible', '2025-01-31 18:02:11'),
 (4, 'La ciudad y los perros', 4, 4, 1, 2, '9788420471839', '1963', 2, 1, 'img/libros/67a15969506cd.jpg', '&lt;br /&gt;\r\n&lt;b&gt;Deprecated&lt;/b&gt;:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in &lt;b&gt;C:xampphtdocsbibliotecaadminlibroseditar.php&lt;/b&gt; on line &lt;b&gt;285&lt;/b&gt;&lt;br /&gt;', 'Prestado', '2025-01-31 18:02:11'),
-(5, 'Crónica de una muerte anunciada', 1, 1, 1, 2, '9788437601774', '1981', 3, 2, 'img/libros/679ebae010b90.jpg', 'Anda, niña: dinos quién fue. Ella se demoró apenas el tiempo necesario para decir el nombre. Lo buscó en las tinieblas, lo encontró a primera vista entre los tantos y tantos nombres confundibles de este mundo y del otro, y lo dejó clavado en la pared con su dardo certero, como a una mariposa cuya sentencia estaba escrita desde siempre. Santiago Nasar dijo.', 'Disponible', '2025-01-31 18:15:16'),
+(5, 'Crónica de una muerte anunciada', 1, 1, 1, 2, '9788437601774', '1981', 3, 3, 'img/libros/679ebae010b90.jpg', 'Anda, niña: dinos quién fue. Ella se demoró apenas el tiempo necesario para decir el nombre. Lo buscó en las tinieblas, lo encontró a primera vista entre los tantos y tantos nombres confundibles de este mundo y del otro, y lo dejó clavado en la pared con su dardo certero, como a una mariposa cuya sentencia estaba escrita desde siempre. Santiago Nasar dijo.', 'Disponible', '2025-01-31 18:15:16'),
 (6, 'El amor en los tiempos del cólera', 1, 1, 1, 2, '9788497592447', '1985', 4, 3, 'img/libros/679ebb741b7f9.jpg', 'Era inevitable: el olor de las almendras amargas le recordaba siempre el destino de los amores contrariados. Así empieza una de las historias de amor más maravillosas de la literatura universal.', 'Disponible', '2025-01-31 18:15:16'),
-(10, 'La Tregua', 17, 1, 1, 3, '9788420428956', '2021', 4, 4, 'img/libros/67a3f275daa09.jpg', 'Historia de un hombre que encuentra el amor maduro', 'Disponible', '2025-02-05 22:02:52'),
+(10, 'La Tregua', 17, 1, 1, 3, '9788420428956', '2021', 4, 3, 'img/libros/67a3f275daa09.jpg', 'Historia de un hombre que encuentra el amor maduro', 'Disponible', '2025-02-05 22:02:52'),
 (12, 'Memorias del Águila y el Jaguar', 3, 3, 1, 3, '9788401337857', '2019', 5, 5, 'img/libros/67a3f27f5584d.jpg', 'Aventuras místicas en América', 'Disponible', '2025-02-05 22:02:52'),
-(22, 'Juego de Tronos', 13, 1, 2, 4, '9788496204964', '2021', 6, 4, 'img/libros/67a3f1c9526d7.jpg', 'Primer libro de Canción de Hielo y Fuego', 'Disponible', '2025-02-05 22:05:34'),
+(22, 'Juego de Tronos', 13, 1, 2, 4, '9788496204964', '2021', 6, 5, 'img/libros/67a3f1c9526d7.jpg', 'Primer libro de Canción de Hielo y Fuego', 'Disponible', '2025-02-05 22:05:34'),
 (23, 'Memorias de Idhún', 16, 2, 2, 6, '9783467539639', '2020', 4, 4, 'img/libros/67a3f1dc4b569.jpg', 'Aventuras en un mundo mágico paralelo', 'Disponible', '2025-02-05 22:05:34'),
 (24, 'Donde los árboles cantan', 16, 3, 2, 4, '9788437552799', '2019', 3, 3, 'img/libros/67a3f4910a01d.png', 'Historia de magia y aventura medieval', 'Disponible', '2025-02-05 22:05:34'),
-(25, 'Asesinato en el Orient Express', 14, 1, 3, 7, '9788427198095', '2020', 5, 5, 'img/libros/67a3f2348d5bb.jpg', 'Un misterioso asesinato en un tren', 'Disponible', '2025-02-05 22:05:34'),
+(25, 'Asesinato en el Orient Express', 14, 1, 3, 7, '9788427198095', '2020', 5, 4, 'img/libros/67a3f2348d5bb.jpg', 'Un misterioso asesinato en un tren', 'Disponible', '2025-02-05 22:05:34'),
 (26, 'Muerte en el Nilo', 14, 2, 3, 7, '9788427298105', '2019', 4, 4, 'img/libros/67a3f242f3184.jpg', 'Hercule Poirot investiga un crimen en Egipto', 'Disponible', '2025-02-05 22:05:34'),
 (27, 'Diez Negritos', 14, 3, 3, 8, '9788427298119', '2018', 3, 3, 'img/libros/67a3f251e4eb3.jpg', 'Diez personas aisladas en una isla misteriosa', 'Disponible', '2025-02-05 22:05:34'),
 (28, 'El Cuaderno de Noah', 15, 1, 4, 10, '9788415140287', '2020', 5, 5, 'img/libros/67a3e9a7e2f59.jpg', 'Una historia de amor a través del tiempo', 'Disponible', '2025-02-05 22:05:34'),
@@ -263,6 +284,27 @@ INSERT INTO `password_resets` (`id`, `id_usuario`, `tipo_cuenta`, `token`, `expi
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `password_reset_tokens`
+--
+
+CREATE TABLE `password_reset_tokens` (
+  `id` int(11) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `token` varchar(255) NOT NULL,
+  `expiracion` datetime NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `password_reset_tokens`
+--
+
+INSERT INTO `password_reset_tokens` (`id`, `email`, `token`, `expiracion`, `created_at`) VALUES
+(1, 'camachomarcos590@gmail.com', '8bcccfdcbe03a6f213c264574b9541d53c3d049ff2dc7c9747d05aeabf6b646c', '2025-03-06 19:31:18', '2025-03-07 00:16:30');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `prestamos`
 --
 
@@ -274,7 +316,7 @@ CREATE TABLE `prestamos` (
   `fecha_prestamo` timestamp NOT NULL DEFAULT current_timestamp(),
   `fecha_devolucion_esperada` date NOT NULL,
   `fecha_devolucion_real` date DEFAULT NULL,
-  `estado` enum('Prestado','Devuelto','Atrasado') DEFAULT 'Prestado',
+  `estado` enum('Pendiente','Aprobado','Rechazado','Prestado','Devuelto','Atrasado') DEFAULT 'Pendiente',
   `observaciones` text DEFAULT NULL,
   `observaciones_devolucion` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -292,26 +334,57 @@ INSERT INTO `prestamos` (`id_prestamo`, `id_libro`, `id_cliente`, `id_usuario`, 
 (9, 5, 6, NULL, '2025-02-04 05:27:33', '2025-02-10', '2025-02-03', 'Devuelto', NULL, ''),
 (10, 5, 6, NULL, '2025-02-04 05:34:15', '2025-02-10', '2025-02-03', 'Devuelto', NULL, ''),
 (11, 5, 1, NULL, '2025-02-04 20:17:38', '2025-02-11', '2025-02-05', 'Devuelto', NULL, NULL),
-(12, 22, 7, NULL, '2025-02-06 23:28:23', '2025-02-13', NULL, 'Prestado', NULL, NULL);
+(12, 22, 7, NULL, '2025-02-06 23:28:23', '2025-02-13', '2025-02-20', 'Devuelto', NULL, NULL),
+(13, 23, 7, NULL, '2025-02-21 00:54:00', '2025-03-06', '2025-02-20', 'Devuelto', 'Devuelto el 2025-02-20: ', NULL),
+(14, 22, 1, NULL, '2025-03-07 04:04:42', '2025-03-13', '2025-03-06', 'Devuelto', 'Devuelto el 2025-03-06: ', NULL),
+(15, 22, 9, NULL, '2025-03-12 22:35:23', '2025-03-19', '2025-04-01', 'Devuelto', NULL, NULL),
+(16, 5, 9, NULL, '2025-03-12 22:36:50', '2025-03-19', '2025-04-01', 'Devuelto', NULL, NULL),
+(17, 5, 9, NULL, '2025-04-02 04:40:07', '2025-04-08', '2025-04-01', 'Devuelto', 'Devuelto el 2025-04-01: ', NULL),
+(18, 5, 9, NULL, '2025-04-02 04:41:26', '2025-04-08', '2025-04-01', 'Devuelto', NULL, NULL),
+(19, 28, 10, NULL, '2025-04-02 05:24:55', '2025-04-08', '2025-04-01', 'Devuelto', 'Devuelto el 2025-04-01: ', NULL),
+(20, 5, 10, NULL, '2025-04-02 05:26:08', '2025-04-08', '2025-04-01', 'Devuelto', 'Devuelto el 2025-04-01: ', NULL),
+(21, 5, 10, NULL, '2025-04-02 05:27:22', '2025-04-08', '2025-04-01', 'Devuelto', 'Devuelto el 2025-04-01: ', NULL),
+(22, 10, 10, NULL, '2025-04-02 05:27:46', '2025-04-08', '2025-04-01', 'Devuelto', 'Devuelto el 2025-04-01: ', NULL),
+(23, 5, 10, NULL, '2025-04-02 05:33:03', '2025-04-08', '2025-04-01', 'Devuelto', 'Devuelto el 2025-04-01: ', NULL),
+(24, 28, 10, NULL, '2025-04-02 05:33:46', '2025-04-08', '2025-04-01', 'Devuelto', 'Devuelto el 2025-04-01: ', NULL),
+(25, 22, 9, NULL, '2025-04-02 16:52:58', '2025-04-09', '2025-04-02', 'Devuelto', 'Préstamo realizado desde carrito\nDevuelto el 2025-04-02: ', NULL),
+(26, 23, 9, NULL, '2025-04-02 16:52:58', '2025-04-09', '2025-04-02', 'Devuelto', 'Préstamo realizado desde carrito\nDevuelto el 2025-04-02: ', NULL),
+(27, 22, 9, NULL, '2025-04-02 22:38:18', '2025-04-09', '2025-04-02', 'Devuelto', 'Préstamo realizado desde carrito', NULL),
+(28, 23, 9, NULL, '2025-04-02 22:38:18', '2025-04-09', '2025-04-02', 'Devuelto', 'Préstamo realizado desde carrito\nDevuelto el 2025-04-02: muy buen libro lo recomiendo', NULL),
+(29, 25, 9, NULL, '2025-04-02 22:49:11', '2025-04-09', NULL, 'Prestado', NULL, NULL),
+(30, 22, 9, NULL, '2025-04-03 04:31:21', '2025-04-09', NULL, 'Pendiente', 'Solicitud realizada desde carrito, pendiente de aprobación', NULL);
 
 --
 -- Disparadores `prestamos`
 --
 DELIMITER $$
 CREATE TRIGGER `after_prestamo_insert` AFTER INSERT ON `prestamos` FOR EACH ROW BEGIN
-    UPDATE libros 
-    SET cantidad_disponible = cantidad_disponible - 1,
-        estado = CASE 
-            WHEN cantidad_disponible - 1 = 0 THEN 'Prestado'
-            ELSE estado 
-        END
-    WHERE id_libro = NEW.id_libro;
+    -- Solo actualiza el libro si el préstamo es Aprobado o Prestado (no en Pendiente)
+    IF NEW.estado IN ('Aprobado', 'Prestado') THEN
+        UPDATE libros 
+        SET cantidad_disponible = cantidad_disponible - 1,
+            estado = CASE 
+                WHEN cantidad_disponible - 1 = 0 THEN 'Prestado'
+                ELSE estado 
+            END
+        WHERE id_libro = NEW.id_libro;
+    END IF;
 END
 $$
 DELIMITER ;
 DELIMITER $$
 CREATE TRIGGER `after_prestamo_update` AFTER UPDATE ON `prestamos` FOR EACH ROW BEGIN
-    IF NEW.estado = 'Devuelto' AND OLD.estado = 'Prestado' THEN
+    -- Si el estado cambia de Pendiente a Aprobado/Prestado, actualizar la disponibilidad
+    IF (OLD.estado = 'Pendiente' AND NEW.estado IN ('Aprobado', 'Prestado')) THEN
+        UPDATE libros 
+        SET cantidad_disponible = cantidad_disponible - 1,
+            estado = CASE 
+                WHEN cantidad_disponible - 1 = 0 THEN 'Prestado'
+                ELSE estado 
+            END
+        WHERE id_libro = NEW.id_libro;
+    -- Si el estado cambia a Devuelto, aumentar disponibilidad
+    ELSEIF (OLD.estado IN ('Aprobado', 'Prestado') AND NEW.estado = 'Devuelto') THEN
         UPDATE libros 
         SET cantidad_disponible = cantidad_disponible + 1,
             estado = CASE 
@@ -319,6 +392,7 @@ CREATE TRIGGER `after_prestamo_update` AFTER UPDATE ON `prestamos` FOR EACH ROW 
                 ELSE estado 
             END
         WHERE id_libro = NEW.id_libro;
+    -- Si el préstamo es rechazado, no se modifica la disponibilidad
     END IF;
 END
 $$
@@ -366,8 +440,7 @@ CREATE TABLE `usuarios` (
 
 INSERT INTO `usuarios` (`id_usuario`, `nombre`, `apellido`, `email`, `password`, `id_rol`, `fecha_registro`, `estado`) VALUES
 (1, 'Adminn', 'Sistema', 'admin@biblioteca.com', '$2y$10$/UWmkwBpV8.3AGNh51h6OOTeAokGd/PZ1z0.uUbE5d2NKoM4irlw.', 1, '2025-01-31 05:08:07', 'Activo'),
-(3, 'Juan', 'Perez', 'bibliotecario@biblioteca.com', '3a8b0679ebad9c7dd19390b67fa62e36', 2, '2025-01-31 18:02:11', 'Inactivo'),
-(14, 'bibliotecario', 'Sistema', 'biblioteca@biblioteca.com', '$2y$10$qWoR5PAUFpqj.trH1pAxLemBtuLPLdwn4WVYnb1UmIrg34u/du/2W', 2, '2025-02-01 20:09:48', 'Activo'),
+(14, 'bibliotecario', 'Sistema', 'biblioteca@biblioteca.com', '$2y$10$szB6ZWn3FkPyts1BdEYhLu9yM3DVa99hvsKxghC4PAD5VbMjO3wm2', 2, '2025-02-01 20:09:48', 'Activo'),
 (15, 'ddd', 'Pérez', '1sss@g.com', '$2y$10$S3TG1IydZlrn1Bv8hvN4GORVriF0.ZfXiwxgoKMy6QwKrGROsgb6u', 2, '2025-02-02 00:00:19', 'Activo');
 
 --
@@ -379,6 +452,15 @@ INSERT INTO `usuarios` (`id_usuario`, `nombre`, `apellido`, `email`, `password`,
 --
 ALTER TABLE `autores`
   ADD PRIMARY KEY (`id_autor`);
+
+--
+-- Indices de la tabla `carrito_prestamos`
+--
+ALTER TABLE `carrito_prestamos`
+  ADD PRIMARY KEY (`id_carrito`),
+  ADD UNIQUE KEY `idx_cliente_libro` (`id_cliente`,`id_libro`),
+  ADD KEY `id_cliente` (`id_cliente`),
+  ADD KEY `id_libro` (`id_libro`);
 
 --
 -- Indices de la tabla `categorias`
@@ -432,6 +514,14 @@ ALTER TABLE `password_resets`
   ADD KEY `id_usuario` (`id_usuario`);
 
 --
+-- Indices de la tabla `password_reset_tokens`
+--
+ALTER TABLE `password_reset_tokens`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `unique_email` (`email`),
+  ADD UNIQUE KEY `unique_token` (`token`);
+
+--
 -- Indices de la tabla `prestamos`
 --
 ALTER TABLE `prestamos`
@@ -465,6 +555,12 @@ ALTER TABLE `autores`
   MODIFY `id_autor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
+-- AUTO_INCREMENT de la tabla `carrito_prestamos`
+--
+ALTER TABLE `carrito_prestamos`
+  MODIFY `id_carrito` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+
+--
 -- AUTO_INCREMENT de la tabla `categorias`
 --
 ALTER TABLE `categorias`
@@ -474,7 +570,7 @@ ALTER TABLE `categorias`
 -- AUTO_INCREMENT de la tabla `clientes`
 --
 ALTER TABLE `clientes`
-  MODIFY `id_cliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_cliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `configuracion`
@@ -507,10 +603,16 @@ ALTER TABLE `password_resets`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
+-- AUTO_INCREMENT de la tabla `password_reset_tokens`
+--
+ALTER TABLE `password_reset_tokens`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT de la tabla `prestamos`
 --
 ALTER TABLE `prestamos`
-  MODIFY `id_prestamo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id_prestamo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT de la tabla `roles`
@@ -527,6 +629,13 @@ ALTER TABLE `usuarios`
 --
 -- Restricciones para tablas volcadas
 --
+
+--
+-- Filtros para la tabla `carrito_prestamos`
+--
+ALTER TABLE `carrito_prestamos`
+  ADD CONSTRAINT `carrito_prestamos_ibfk_1` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id_cliente`) ON DELETE CASCADE,
+  ADD CONSTRAINT `carrito_prestamos_ibfk_2` FOREIGN KEY (`id_libro`) REFERENCES `libros` (`id_libro`) ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `categorias`

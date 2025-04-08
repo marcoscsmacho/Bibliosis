@@ -1,7 +1,8 @@
 <?php
 //recuperar-password.php
 session_start();
-require_once 'config/config.php';
+require_once 'config/config2.php';
+
 
 // Añadir requisitos para PHPMailer
 use PHPMailer\PHPMailer\PHPMailer;
@@ -49,8 +50,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     $mail->isSMTP();
                     $mail->Host       = 'smtp.gmail.com'; // Ajusta según tu servidor
                     $mail->SMTPAuth   = true;
-                    $mail->Username   = 'bibliosissoporte@gmail.com'; // Tu correo
-                    $mail->Password   = 'fyledtlmlhexuurx'; // Tu contraseña de aplicación
+                    $mail->Username   = 'camachomarcos590@gmail.com'; // Tu correo
+                    $mail->Password   = 'dlrdnosdqizqbphf'; // Tu contraseña de aplicación
                     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
                     $mail->Port       = 587;
                     $mail->CharSet    = 'UTF-8';

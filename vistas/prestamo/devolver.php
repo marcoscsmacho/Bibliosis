@@ -1,11 +1,11 @@
 <?php
+ob_start();
 // vistas/prestamos/devolver.php
 session_start();
 if (!isset($basePath)) {
     $basePath = '../../';
 }
-$pageTitle = 'Devolver Préstamo - BiblioSis';
-require_once '../../modules/header.php';
+require_once '../../config/config.php';
 
 // Verificar que el usuario esté logueado
 if (!isLoggedIn()) {
@@ -13,12 +13,18 @@ if (!isLoggedIn()) {
     header('Location: ../../login.php');
     exit;
 }
-
+if (!isAdmin() && !isBibliotecario()) {
+    $_SESSION['error'] = "Solo el personal de la biblioteca puede procesar devoluciones. Por favor, lleve el libro físicamente a la biblioteca.";
+    header('Location: index.php');
+    exit;
+}
 // Verificar que se proporcionó un ID
 if (!isset($_GET['id'])) {
     header('Location: index.php');
     exit;
 }
+$pageTitle = 'Devolver Préstamo - BiblioSis';
+require_once '../../modules/header.php';
 
 $id_prestamo = (int)$_GET['id'];
 $error = null;
@@ -66,17 +72,7 @@ try {
                 $_SESSION['user_id']
             ]);
 
-            // Actualizar el libro
-            $stmt = $pdo->prepare("
-                UPDATE libros 
-                SET cantidad_disponible = cantidad_disponible + 1,
-                    estado = CASE 
-                        WHEN cantidad_disponible + 1 > 0 THEN 'Disponible'
-                        ELSE estado 
-                    END
-                WHERE id_libro = ?
-            ");
-            $stmt->execute([$prestamo['id_libro']]);
+            // No actualizamos manualmente el libro aquí - el trigger after_prestamo_update lo hará
 
             $pdo->commit();
             $mensaje = "¡El libro ha sido devuelto exitosamente!";
@@ -89,6 +85,7 @@ try {
 } catch (Exception $e) {
     $error = $e->getMessage();
 }
+ob_end_flush();
 ?>
 
 <div class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white">

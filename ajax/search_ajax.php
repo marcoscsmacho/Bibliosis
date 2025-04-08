@@ -1,9 +1,11 @@
 <?php
-// ajax/search_ajax.php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+// Apagar notificaciones de error para evitar contaminación del JSON
+error_reporting(0);
+ini_set('display_errors', 0);
 
-require_once '../config/config.php';
+require_once __DIR__ . '/../config/config.php';
+
+// Establecer el tipo de contenido como JSON
 header('Content-Type: application/json');
 
 try {
@@ -12,6 +14,9 @@ try {
     }
 
     $query = '%' . $_POST['query'] . '%';
+
+    // Obtener la ruta base usando la función del config.php
+    $basePath = getBasePath();
     
     $stmt = $pdo->prepare("
         SELECT l.id_libro, l.titulo, l.imagen_portada,
@@ -19,8 +24,8 @@ try {
         FROM libros l
         JOIN autores a ON l.id_autor = a.id_autor
         WHERE l.titulo LIKE ? 
-           OR CONCAT(a.nombre, ' ', a.apellido) LIKE ?
-           OR a.nombre LIKE ?
+           OR CONCAT(a.nombre, ' ', a.apellido) LIKE ? 
+           OR a.nombre LIKE ? 
            OR a.apellido LIKE ?
         LIMIT 5
     ");
@@ -28,10 +33,14 @@ try {
     $stmt->execute([$query, $query, $query, $query]);
     $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
     
-    echo json_encode($results);
+    // Asegurar que las rutas de las imágenes sean correctas
+    foreach ($results as &$result) {
+        if (!empty($result['imagen_portada'])) {
+            $result['imagen_portada'] = $basePath . $result['imagen_portada'];
+        }
+    }
 
-} catch(Exception $e) {
-    http_response_code(200);
+    echo json_encode($results);
+} catch (Exception $e) {
     echo json_encode(['error' => $e->getMessage()]);
 }
-?>
