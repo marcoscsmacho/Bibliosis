@@ -169,32 +169,30 @@ $pageTitle = "Gestión de Préstamos - BiblioSis";
 
                 <!-- Filtros -->
                 <div class="bg-white rounded-lg shadow-sm p-4 mb-6">
-                    <form method="GET" class="flex flex-wrap gap-4 items-end">
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Estado</label>
-                            <select name="estado" class="rounded border-gray-300 shadow-sm focus:ring-purple-500 focus:border-purple-500">
-                                <option value="todos" <?php echo $estado === 'todos' ? 'selected' : ''; ?>>Todos</option>
-                                <option value="Pendiente" <?php echo $estado === 'Pendiente' ? 'selected' : ''; ?>>Pendientes</option>
-                                <option value="Prestado" <?php echo $estado === 'Prestado' ? 'selected' : ''; ?>>Prestado</option>
-                                <option value="Devuelto" <?php echo $estado === 'Devuelto' ? 'selected' : ''; ?>>Devuelto</option>
-                                <option value="Rechazado" <?php echo $estado === 'Rechazado' ? 'selected' : ''; ?>>Rechazado</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Fecha Inicio</label>
-                            <input type="date" name="fecha_inicio" value="<?php echo $fecha_inicio; ?>"
-                                   class="rounded border-gray-300 shadow-sm focus:ring-purple-500 focus:border-purple-500">
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Fecha Fin</label>
-                            <input type="date" name="fecha_fin" value="<?php echo $fecha_fin; ?>"
-                                   class="rounded border-gray-300 shadow-sm focus:ring-purple-500 focus:border-purple-500">
-                        </div>
-                        <div>
-                            <button type="submit" class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700">
-                                <i class="fas fa-filter mr-2"></i>Filtrar
-                            </button>
-                        </div>
+    <form method="GET" class="flex flex-wrap gap-4">
+        <div class="flex-1 min-w-[200px]">
+            <label class="block text-sm font-medium text-gray-700 mb-1">Estado</label>
+            <select name="estado" id="filtro-estado"
+                    class="rounded border-gray-300 shadow-sm focus:ring-purple-500 focus:border-purple-500">
+                <option value="todos" <?php echo $estado === 'todos' ? 'selected' : ''; ?>>Todos</option>
+                <option value="Prestado" <?php echo $estado === 'Prestado' ? 'selected' : ''; ?>>Prestado</option>
+                <option value="Devuelto" <?php echo $estado === 'Devuelto' ? 'selected' : ''; ?>>Devuelto</option>
+                <option value="Atrasado" <?php echo $estado === 'Atrasado' ? 'selected' : ''; ?>>Atrasado</option>
+                <option value="Rechazado"<?php echo $estado === 'Rechazado' ? 'selected' : ''; ?>>Rechazado</option>
+            </select>
+        </div>
+
+        <div class="flex-1 min-w-[200px]">
+            <label class="block text-sm font-medium text-gray-700 mb-1">Fecha Prestamo</label>
+            <input type="date" name="fecha_inicio" id="filtro-fecha-inicio" value="<?php echo $fecha_inicio; ?>"
+                   class="rounded border-gray-300 shadow-sm focus:ring-purple-500 focus:border-purple-500">
+        </div>
+        <div class="flex-1 min-w-[200px]">
+            <label class="block text-sm font-medium text-gray-700 mb-1">Fecha Devolución</label>
+            <input type="date" name="fecha_fin" id="filtro-fecha-fin" value="<?php echo $fecha_fin; ?>"
+                   class="rounded border-gray-300 shadow-sm focus:ring-purple-500 focus:border-purple-500">
+        </div>
+                       
                     </form>
                 </div>
 
@@ -329,5 +327,24 @@ $pageTitle = "Gestión de Préstamos - BiblioSis";
             </div>
         </div>
     </div>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Obtener referencias a los elementos de filtro
+        const filtroEstado = document.getElementById('filtro-estado');
+        const filtroFechaInicio = document.getElementById('filtro-fecha-inicio');
+        const filtroFechaFin = document.getElementById('filtro-fecha-fin');
+        
+        // Función para aplicar los filtros automáticamente
+        function aplicarFiltros() {
+            // Enviar el formulario
+            filtroEstado.form.submit();
+        }
+        
+        // Agregar eventos para detectar cambios en los filtros
+        filtroEstado.addEventListener('change', aplicarFiltros);
+        filtroFechaInicio.addEventListener('change', aplicarFiltros);
+        filtroFechaFin.addEventListener('change', aplicarFiltros);
+    });
+</script>
 </body>
 </html>

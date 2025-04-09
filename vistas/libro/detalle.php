@@ -86,17 +86,17 @@ try {
         <div class="md:flex">
             <!-- Imagen y acciones -->
             <div class="md:w-1/3 p-8">
-                <div class="aspect-w-3 aspect-h-4 rounded-lg overflow-hidden mb-6">
-                    <?php if ($libro['imagen_portada']): ?>
-                        <img src="<?php echo $basePath . $libro['imagen_portada']; ?>" 
-                             alt="<?php echo htmlspecialchars($libro['titulo']); ?>"
-                             class="w-full h-full object-cover">
-                    <?php else: ?>
-                        <div class="w-full h-full bg-gray-200 flex items-center justify-center">
-                            <i class="fas fa-book text-gray-400 text-4xl"></i>
-                        </div>
-                    <?php endif; ?>
-                </div>
+    <div class="aspect-w-3 aspect-h-4 rounded-lg overflow-hidden mb-6 bg-gray-100 h-96">
+        <?php if ($libro['imagen_portada']): ?>
+            <img src="<?php echo $basePath . $libro['imagen_portada']; ?>" 
+                 alt="<?php echo htmlspecialchars($libro['titulo']); ?>"
+                 class="w-full h-full object-cover object-center">
+        <?php else: ?>
+            <div class="w-full h-full flex items-center justify-center">
+                <i class="fas fa-book text-gray-400 text-4xl"></i>
+            </div>
+        <?php endif; ?>
+    </div>
 
                 <!-- Estado y disponibilidad -->
                 <div class="space-y-4">
@@ -204,33 +204,33 @@ try {
     <div class="mt-12">
         <h2 class="text-2xl font-bold text-gray-900 mb-6">Libros relacionados</h2>
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-            <?php foreach ($libros_relacionados as $libro_rel): ?>
-            <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
-                <a href="<?php echo $basePath; ?>vistas/libro/detalle.php?id=<?php echo $libro_rel['id_libro']; ?>" 
-                   class="block">
-                    <div class="relative h-64">
-                        <?php if ($libro_rel['imagen_portada']): ?>
-                            <img src="<?php echo $basePath . $libro_rel['imagen_portada']; ?>" 
-                                 alt="<?php echo htmlspecialchars($libro_rel['titulo']); ?>"
-                                 class="w-full h-full object-cover">
-                        <?php else: ?>
-                            <div class="w-full h-full bg-gray-200 flex items-center justify-center">
-                                <i class="fas fa-book text-gray-400 text-4xl"></i>
-                            </div>
-                        <?php endif; ?>
+    <?php foreach ($libros_relacionados as $libro_rel): ?>
+    <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+        <a href="<?php echo $basePath; ?>vistas/libro/detalle.php?id=<?php echo $libro_rel['id_libro']; ?>" 
+           class="block">
+            <div class="relative h-64 bg-gray-100">
+                <?php if ($libro_rel['imagen_portada']): ?>
+                    <img src="<?php echo $basePath . $libro_rel['imagen_portada']; ?>" 
+                         alt="<?php echo htmlspecialchars($libro_rel['titulo']); ?>"
+                         class="w-full h-full object-cover object-center">
+                <?php else: ?>
+                    <div class="w-full h-full flex items-center justify-center">
+                        <i class="fas fa-book text-gray-400 text-4xl"></i>
                     </div>
-                    <div class="p-4">
-                        <h3 class="text-lg font-semibold text-gray-800 mb-2">
-                            <?php echo htmlspecialchars($libro_rel['titulo']); ?>
-                        </h3>
-                        <p class="text-gray-600 text-sm">
-                            <?php echo htmlspecialchars($libro_rel['autor_nombre'] . ' ' . $libro_rel['autor_apellido']); ?>
-                        </p>
-                    </div>
-                </a>
+                <?php endif; ?>
             </div>
-            <?php endforeach; ?>
-        </div>
+            <div class="p-4">
+                <h3 class="text-lg font-semibold text-gray-800 h-14 overflow-hidden line-clamp-2">
+                    <?php echo htmlspecialchars($libro_rel['titulo']); ?>
+                </h3>
+                <p class="text-gray-600 text-sm truncate">
+                    <?php echo htmlspecialchars($libro_rel['autor_nombre'] . ' ' . $libro_rel['autor_apellido']); ?>
+                </p>
+            </div>
+        </a>
+    </div>
+    <?php endforeach; ?>
+</div>
     </div>
     <?php endif; ?>
 </div>

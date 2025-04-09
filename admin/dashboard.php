@@ -45,6 +45,8 @@ $pageTitle = 'Bibliocont - BiblioSis';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo $pageTitle; ?></title>
+    <link rel="icon" type="image/svg+xml" href="<?php echo $basePath; ?>/img/favicon.svg">
+    <link rel="icon" type="image/png" href="<?php echo $basePath; ?>img/favicon.png">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
@@ -60,7 +62,7 @@ $pageTitle = 'Bibliocont - BiblioSis';
             <nav class="mt-4">
                 <a href="dashboard.php" class="flex items-center px-6 py-3 bg-gray-900 text-white">
                     <i class="fas fa-tachometer-alt mr-3"></i>
-                    Dashboard
+                    inicio
                 </a>
                 <a href="Autores/" class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-700">
                     <i class="fas fa-feather mr-3"></i>
@@ -99,7 +101,7 @@ $pageTitle = 'Bibliocont - BiblioSis';
             <!-- Header -->
             <header class="bg-white shadow">
                 <div class="flex justify-between items-center px-6 py-4">
-                    <h2 class="text-2xl font-semibold text-gray-800">Bibliocont</h2>
+                    <h2 class="text-2xl font-semibold text-gray-800">BiblioSis</h2>
                     <div class="flex items-center">
                         <span class="text-gray-600 mr-4">
                             Bienvenido <?php echo htmlspecialchars($_SESSION['user_nombre']); ?>

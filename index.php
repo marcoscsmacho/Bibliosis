@@ -59,19 +59,34 @@ require_once 'modules/header.php';
                             ORDER BY l.fecha_registro DESC LIMIT 4");
         while ($libro = $stmt->fetch(PDO::FETCH_ASSOC)) {
         ?>
-            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-                <img src="<?php echo $libro['imagen_portada'] ?? '/api/placeholder/300/400'; ?>" 
-                     alt="<?php echo htmlspecialchars($libro['titulo']); ?>" 
-                     class="w-full h-70 object-cover hover:opacity-90 transition-opacity">
-                <div class="p-4">
-                    <h3 class="font-semibold text-gray-800"><?php echo htmlspecialchars($libro['titulo']); ?></h3>
-                    <p class="text-gray-600 text-sm">
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden flex flex-col h-full">
+                <!-- Contenedor de imagen con altura fija -->
+                <div class="relative h-100 w-full bg-gray-100">
+                    <?php if ($libro['imagen_portada']): ?>
+                        <img src="<?php echo $libro['imagen_portada'] ?? '/api/placeholder/300/400'; ?>" 
+                             alt="<?php echo htmlspecialchars($libro['titulo']); ?>" 
+                             class="w-full h-full object-cover object-center hover:opacity-90 transition-opacity">
+                    <?php else: ?>
+                        <div class="w-full h-full flex items-center justify-center">
+                            <i class="fas fa-book text-gray-400 text-4xl"></i>
+                        </div>
+                    <?php endif; ?>
+                </div>
+                
+                <!-- Información del libro con altura controlada -->
+                <div class="p-4 flex-1 flex flex-col">
+                    <h3 class="font-semibold text-gray-800 h-12 overflow-hidden line-clamp-2">
+                        <?php echo htmlspecialchars($libro['titulo']); ?>
+                    </h3>
+                    <p class="text-gray-600 text-sm truncate">
                         <?php echo htmlspecialchars($libro['autor_nombre'] . ' ' . $libro['autor_apellido']); ?>
                     </p>
-                    <a href="vistas/libro/detalle.php?id=<?php echo $libro['id_libro']; ?>" 
-                       class="mt-4 block w-full bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 text-center">
-                        Ver detalles
-                    </a>
+                    <div class="mt-auto pt-3">
+                        <a href="vistas/libro/detalle.php?id=<?php echo $libro['id_libro']; ?>" 
+                           class="mt-2 block w-full bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 text-center">
+                            Ver detalles
+                        </a>
+                    </div>
                 </div>
             </div>
         <?php } ?>

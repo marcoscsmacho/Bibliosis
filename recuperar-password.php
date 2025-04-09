@@ -1,7 +1,7 @@
 <?php
 //recuperar-password.php
 session_start();
-require_once 'config/config2.php';
+require_once 'config/config.php';
 
 
 // Añadir requisitos para PHPMailer

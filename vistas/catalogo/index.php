@@ -74,31 +74,33 @@ try {
 
     <!-- Contenedor de resultados -->
     <div id="resultados" class="p-4">
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            <?php foreach ($libros as $libro): ?>
-                <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
-                    <div class="relative h-96">
-                        <?php if ($libro['imagen_portada']): ?>
-                            <img src="<?php echo $basePath . $libro['imagen_portada']; ?>" 
-                                 alt="<?php echo htmlspecialchars($libro['titulo']); ?>"
-                                 class="w-full h-full object-cover">
-                        <?php else: ?>
-                            <div class="w-full h-full bg-gray-200 flex items-center justify-center">
-                                <i class="fas fa-book text-gray-400 text-4xl"></i>
-                            </div>
-                        <?php endif; ?>
-                    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <?php foreach ($libros as $libro): ?>
+            <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow h-full flex flex-col">
+                <!-- Contenedor de imagen con altura fija -->
+                <div class="relative h-80 w-full overflow-hidden bg-gray-100">
+                    <?php if ($libro['imagen_portada']): ?>
+                        <img src="<?php echo $basePath . $libro['imagen_portada']; ?>" 
+                             alt="<?php echo htmlspecialchars($libro['titulo']); ?>"
+                             class="w-full h-full object-cover object-center">
+                    <?php else: ?>
+                        <div class="w-full h-full flex items-center justify-center">
+                            <i class="fas fa-book text-gray-400 text-4xl"></i>
+                        </div>
+                    <?php endif; ?>
+                </div>
                     
-                    <div class="p-4">
-                        <h3 class="text-lg font-semibold text-gray-800 mb-2">
-                            <?php echo htmlspecialchars($libro['titulo']); ?>
-                        </h3>
-                        <p class="text-gray-600 mb-4">
-                            <?php echo htmlspecialchars($libro['autor_nombre'] . ' ' . $libro['autor_apellido']); ?>
-                        </p>
-                        
+                <div class="p-4 flex-1 flex flex-col">
+                    <h3 class="text-lg font-semibold text-gray-800 h-14 overflow-hidden line-clamp-2">
+                        <?php echo htmlspecialchars($libro['titulo']); ?>
+                    </h3>
+                    <p class="text-gray-600 h-6 overflow-hidden truncate">
+                        <?php echo htmlspecialchars($libro['autor_nombre'] . ' ' . $libro['autor_apellido']); ?>
+                    </p>
+                    
+                    <div class="mt-auto pt-4">
                         <div class="flex items-center justify-between mb-4">
-                            <span class="px-2 py-1 text-sm rounded-full <?php 
+                            <span class="px-2 py-1 text-xs rounded-full <?php 
                                 echo $libro['estado'] === 'Disponible' 
                                     ? 'bg-green-100 text-green-800' 
                                     : 'bg-red-100 text-red-800'; ?>">
@@ -115,10 +117,11 @@ try {
                         </a>
                     </div>
                 </div>
-            <?php endforeach; ?>
-        </div>
+            </div>
+        <?php endforeach; ?>
     </div>
 </div>
+
 
 <!-- Incluir el archivo JavaScript -->
 <script src="../../js/catalogo.js"></script>

@@ -276,13 +276,13 @@ $pageTitle = "Ver Préstamo - BiblioSis";
                     </div>
                 </div>
 
-                <?php if (isAdmin()): ?>
+                <!--<?php if (isAdmin()): ?>
                 <div class="mt-6 flex justify-end">
                     <a href="editar.php?id=<?php echo $prestamo['id_prestamo']; ?>" 
                        class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded">
                         <i class="fas fa-edit mr-2"></i>Editar Préstamo
                     </a>
-                </div>
+                </div> -->
                 <?php endif; ?>
             </div>
         </div>

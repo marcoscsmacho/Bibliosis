@@ -189,16 +189,16 @@ try {
                                 <div class="flex items-start space-x-4">
                                     <!-- Imagen del libro -->
                                     <div class="flex-shrink-0 w-24">
-                                        <?php if ($item['libro_imagen']): ?>
-                                            <img src="<?php echo $basePath . $item['libro_imagen']; ?>" 
-                                                 alt="<?php echo htmlspecialchars($item['libro_titulo']); ?>"
-                                                 class="w-full h-32 object-cover rounded">
-                                        <?php else: ?>
-                                            <div class="w-full h-32 bg-gray-200 flex items-center justify-center rounded">
-                                                <i class="fas fa-book text-gray-400 text-4xl"></i>
-                                            </div>
-                                        <?php endif; ?>
-                                    </div>
+    <?php if ($item['libro_imagen']): ?>
+        <img src="<?php echo $basePath . $item['libro_imagen']; ?>" 
+             alt="<?php echo htmlspecialchars($item['libro_titulo']); ?>"
+             class="w-full h-32 object-cover object-center rounded">
+    <?php else: ?>
+        <div class="w-full h-32 bg-gray-200 flex items-center justify-center rounded">
+            <i class="fas fa-book text-gray-400 text-4xl"></i>
+        </div>
+    <?php endif; ?>
+</div>
 
                                     <!-- Información del libro -->
                                     <div class="flex-1 min-w-0">
