@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 03-04-2025 a las 06:49:15
+-- Tiempo de generación: 16-04-2025 a las 22:30:08
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.1.25
 
@@ -50,7 +50,11 @@ INSERT INTO `autores` (`id_autor`, `nombre`, `apellido`, `biografia`, `fecha_nac
 (14, 'Agatha', 'Christie', 'La reina del crimen, autora de misterio', '1890-09-15', 'Británica', NULL),
 (15, 'Nicholas', 'Sparks', 'Autor bestseller de novelas románticas', '1965-12-31', 'Estadounidense', NULL),
 (16, 'Laura', 'Gallego', 'Escritora española de literatura fantástica', '1977-10-11', 'Española', NULL),
-(17, 'Mario', 'Benedetti', 'Escritor uruguayo destacado en poesía y narrativa', '1920-09-14', 'Uruguaya', NULL);
+(17, 'Mario', 'Benedetti', 'Escritor uruguayo destacado en poesía y narrativa', '1920-09-14', 'Uruguaya', NULL),
+(23, 'Haruki', 'Murakami', 'Escritor y traductor japonés, autor de novelas, relatos y ensayos. Sus obras más conocidas incluyen \"Tokio blues\", \"Kafka en la orilla\" y \"1Q84\". Su estilo mezcla realismo con elementos surrealistas.', '1949-01-12', 'Japonesa', NULL),
+(24, 'Jane', 'Austen', 'Novelista británica reconocida por sus obras que retratan la vida de la burguesía rural inglesa de principios del siglo XIX. Sus obras más famosas incluyen \"Orgullo y prejuicio\" y \"Sentido y sensibilidad\".', '1775-12-16', 'Británica', NULL),
+(25, 'Octavia', 'Butler', 'Escritora estadounidense de ciencia ficción. Fue la primera escritora de este género en recibir la Beca MacArthur. Sus obras exploran temas como la raza, el género y la jerarquía social.', '1947-06-22', 'Estadounidense', NULL),
+(26, 'Albert', 'Camus', 'Escritor, filósofo y periodista francés nacido en Argelia. Figura clave del existencialismo y ganador del Premio Nobel de Literatura en 1957. Sus obras más conocidas incluyen \"El extranjero\" y \"La peste\".', '1913-11-07', 'Francesa', NULL);
 
 -- --------------------------------------------------------
 
@@ -64,13 +68,6 @@ CREATE TABLE `carrito_prestamos` (
   `id_libro` int(11) NOT NULL,
   `fecha_agregado` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `carrito_prestamos`
---
-
-INSERT INTO `carrito_prestamos` (`id_carrito`, `id_cliente`, `id_libro`, `fecha_agregado`) VALUES
-(16, 1, 29, '2025-04-02 22:59:40');
 
 -- --------------------------------------------------------
 
@@ -138,7 +135,7 @@ INSERT INTO `clientes` (`id_cliente`, `nombre`, `apellido`, `email`, `telefono`,
 (5, 'Joel', 'cano', 'sss@g.com', '4412345693', 'ahuacatlan de guadalupe', 'img/usuarios/679ea0f1356ea.jpg', '2025-02-01 22:23:45', 'Activo', '$2y$10$/UnCWWwXHtC6TZU8vdFr3OzFq4U5LGuSV7Ufe789dK.d02b/WdBAq'),
 (6, 'Juann', 'Pérez', 'juan@ejemplo.com', '1234567890', 'Calle Principal #123', NULL, '2025-02-04 02:46:46', 'Activo', '$2y$10$l7Nr.myHwhFtk0xV5GPmuuNoxzBzW2RhGVQpPxPeaq6W9b/ooC/8.'),
 (7, 'Mario', 'Alcaraz', '1sss@g.com', '0000012346', 'Colonia ermita CD México', 'img/usuarios/67a1aeb45217b.jpg', '2025-02-04 06:07:48', 'Activo', '$2y$10$Dapd8TFpRfovpfB9g5s.R.XfX4EFPz5FD5pNB5.JWulBNi8ULxeoi'),
-(9, 'marcos', 'camacho', 'camachomarcos590@gmail.com', '4411231647', 'jalpan de serra', 'img/usuarios/67edbfc67eea4.jpg', '2025-03-05 17:13:21', 'Activo', '$2y$10$O7Bg352TRGayRLdMQAf8EO5RbSf1Aek9WJgRN8GwZbCgYEN6pfTZ2'),
+(9, 'marcos', 'camacho', 'camachomarcos590@gmail.com', '4411231647', 'jalpan de serra', 'img/usuarios/67edbfc67eea4.jpg', '2025-03-05 17:13:21', 'Activo', '$2y$10$AeEeKeDBrrIN.l/bQePSw..oLLvTE60PJKD9Q.DdKEUnemB8JWO7G'),
 (10, '1', '1', '1@gmail.com', '4411231647', '', 'img/usuarios/67eccfa2202b9.jpg', '2025-04-02 04:42:27', 'Activo', '$2y$10$17NvmuK9YqBZDTX5IzL3s.ZRNwXmguFEkRPvKyiHSg4nGXO0OE2R2');
 
 -- --------------------------------------------------------
@@ -240,7 +237,7 @@ CREATE TABLE `libros` (
 --
 
 INSERT INTO `libros` (`id_libro`, `titulo`, `id_autor`, `id_editorial`, `id_genero`, `id_categoria`, `isbn`, `año_publicacion`, `cantidad_total`, `cantidad_disponible`, `imagen_portada`, `sinopsis`, `estado`, `fecha_registro`) VALUES
-(1, 'Cien años de soledad', 1, 1, 1, 2, '9780307474728', '1967', 5, 4, 'img/libros/679e96a44b4b4.jpg', 'Cien años de soledad&amp;quot; es una novela de Gabriel García Márquez que narra la historia de la familia Buendía y el pueblo de Macondo, un lugar ficticio que refleja muchas de las costumbres y anécdotas vividas por el autor durante su infancia en Aracataca, Colombia. La novela se desarrolla entre mediados del siglo XIX y mediados del siglo XX, época marcada por guerras civiles y el surgimiento de partidos políticos en Colombia.', 'Disponible', '2025-01-31 18:02:11'),
+(1, 'Cien años de soledad', 1, 1, 1, 2, '9780307474728', '1967', 5, 2, 'img/libros/679e96a44b4b4.jpg', 'Cien años de soledad&amp;quot; es una novela de Gabriel García Márquez que narra la historia de la familia Buendía y el pueblo de Macondo, un lugar ficticio que refleja muchas de las costumbres y anécdotas vividas por el autor durante su infancia en Aracataca, Colombia. La novela se desarrolla entre mediados del siglo XIX y mediados del siglo XX, época marcada por guerras civiles y el surgimiento de partidos políticos en Colombia.', 'Disponible', '2025-01-31 18:02:11'),
 (2, 'El Aleph', 2, 3, 1, 2, '9788437604848', '1949', 2, 1, 'img/libros/679e97d6b1778.jpg', 'Dieciocho relatos filosóficos y sobrenaturales entre los que se encuentra uno de los relatos más admirados en el campo de la literatura: El Aleph. La mayoría de los cuentos reunidos en este libro pertenecen al género fantástico. Algunos surgieron a partir de crónicas policiales, de pinturas o simplemente de la visión de algún conventillo; otro explora el efecto que la inmortalidad causaría en los hombres; hay una glosa al Martín Fierro, sueños sobre la identidad personal y fantasías del tiempo.', 'Disponible', '2025-01-31 18:02:11'),
 (3, 'La casa de los espíritus', 3, 2, 1, 2, '9780525433477', '1982', 4, 3, 'img/libros/67a15904dcf01.jpg', '&lt;br /&gt;\r\n&lt;b&gt;Deprecated&lt;/b&gt;:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in &lt;b&gt;C:xampphtdocsbibliotecaadminlibroseditar.php&lt;/b&gt; on line &lt;b&gt;285&lt;/b&gt;&lt;br /&gt;', 'Disponible', '2025-01-31 18:02:11'),
 (4, 'La ciudad y los perros', 4, 4, 1, 2, '9788420471839', '1963', 2, 1, 'img/libros/67a15969506cd.jpg', '&lt;br /&gt;\r\n&lt;b&gt;Deprecated&lt;/b&gt;:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in &lt;b&gt;C:xampphtdocsbibliotecaadminlibroseditar.php&lt;/b&gt; on line &lt;b&gt;285&lt;/b&gt;&lt;br /&gt;', 'Prestado', '2025-01-31 18:02:11'),
@@ -248,15 +245,19 @@ INSERT INTO `libros` (`id_libro`, `titulo`, `id_autor`, `id_editorial`, `id_gene
 (6, 'El amor en los tiempos del cólera', 1, 1, 1, 2, '9788497592447', '1985', 4, 3, 'img/libros/679ebb741b7f9.jpg', 'Era inevitable: el olor de las almendras amargas le recordaba siempre el destino de los amores contrariados. Así empieza una de las historias de amor más maravillosas de la literatura universal.', 'Disponible', '2025-01-31 18:15:16'),
 (10, 'La Tregua', 17, 1, 1, 3, '9788420428956', '2021', 4, 3, 'img/libros/67a3f275daa09.jpg', 'Historia de un hombre que encuentra el amor maduro', 'Disponible', '2025-02-05 22:02:52'),
 (12, 'Memorias del Águila y el Jaguar', 3, 3, 1, 3, '9788401337857', '2019', 5, 5, 'img/libros/67a3f27f5584d.jpg', 'Aventuras místicas en América', 'Disponible', '2025-02-05 22:02:52'),
-(22, 'Juego de Tronos', 13, 1, 2, 4, '9788496204964', '2021', 6, 5, 'img/libros/67a3f1c9526d7.jpg', 'Primer libro de Canción de Hielo y Fuego', 'Disponible', '2025-02-05 22:05:34'),
-(23, 'Memorias de Idhún', 16, 2, 2, 6, '9783467539639', '2020', 4, 4, 'img/libros/67a3f1dc4b569.jpg', 'Aventuras en un mundo mágico paralelo', 'Disponible', '2025-02-05 22:05:34'),
+(22, 'Juego de Tronos', 13, 1, 2, 4, '9788496204964', '2021', 6, 3, 'img/libros/67a3f1c9526d7.jpg', 'Primer libro de Canción de Hielo y Fuego', 'Disponible', '2025-02-05 22:05:34'),
+(23, 'Memorias de Idhún', 16, 2, 2, 6, '9783467539639', '2020', 4, 3, 'img/libros/67a3f1dc4b569.jpg', 'Aventuras en un mundo mágico paralelo', 'Disponible', '2025-02-05 22:05:34'),
 (24, 'Donde los árboles cantan', 16, 3, 2, 4, '9788437552799', '2019', 3, 3, 'img/libros/67a3f4910a01d.png', 'Historia de magia y aventura medieval', 'Disponible', '2025-02-05 22:05:34'),
-(25, 'Asesinato en el Orient Express', 14, 1, 3, 7, '9788427198095', '2020', 5, 4, 'img/libros/67a3f2348d5bb.jpg', 'Un misterioso asesinato en un tren', 'Disponible', '2025-02-05 22:05:34'),
+(25, 'Asesinato en el Orient Express', 14, 1, 3, 7, '9788427198095', '2020', 5, 5, 'img/libros/67a3f2348d5bb.jpg', 'Un misterioso asesinato en un tren', 'Disponible', '2025-02-05 22:05:34'),
 (26, 'Muerte en el Nilo', 14, 2, 3, 7, '9788427298105', '2019', 4, 4, 'img/libros/67a3f242f3184.jpg', 'Hercule Poirot investiga un crimen en Egipto', 'Disponible', '2025-02-05 22:05:34'),
 (27, 'Diez Negritos', 14, 3, 3, 8, '9788427298119', '2018', 3, 3, 'img/libros/67a3f251e4eb3.jpg', 'Diez personas aisladas en una isla misteriosa', 'Disponible', '2025-02-05 22:05:34'),
 (28, 'El Cuaderno de Noah', 15, 1, 4, 10, '9788415140287', '2020', 5, 5, 'img/libros/67a3e9a7e2f59.jpg', 'Una historia de amor a través del tiempo', 'Disponible', '2025-02-05 22:05:34'),
 (29, 'Mensaje en una Botella', 15, 2, 4, 10, '9788455140290', '2019', 4, 4, 'img/libros/67a3f26045732.jpg', 'Romance y misterio en la costa', 'Disponible', '2025-02-05 22:05:34'),
-(30, 'Noches de Tormenta', 15, 3, 4, 11, '9788415240306', '2018', 3, 3, 'img/libros/67a3f26b6ce30.jpg', 'Encuentro fortuito durante una tormenta', 'Disponible', '2025-02-05 22:05:34');
+(30, 'Noches de Tormenta', 15, 3, 4, 11, '9788415240306', '2018', 3, 3, 'img/libros/67a3f26b6ce30.jpg', 'Encuentro fortuito durante una tormenta', 'Disponible', '2025-02-05 22:05:34'),
+(31, 'Kafka en la orilla', 23, 1, 2, 6, '9788483835180', '2002', 3, 3, 'img/libros/67f48116e96f0.jpg', 'Un joven de quince años, Kafka Tamura, se escapa de casa para escapar de la terrible profecía de su padre y encontrar a su madre y hermana. Después de varias peripecias, Kafka llega a una pintoresca biblioteca privada donde conoce a la misteriosa señorita Saeki y a Oshima, su mano derecha. Mientras, Nakata, viejo y casi analfabeto, pero con un don especial, se ve inmerso en una aventura que le llevará hasta Kafka.', 'Disponible', '2025-04-08 01:49:51'),
+(32, 'Orgullo y prejuicio', 24, 2, 1, 2, '9788497940252', '2023', 4, 4, 'img/libros/67f48159f403f.jpg', 'La historia sigue a Elizabeth Bennet, la segunda de cinco hermanas de una familia rural inglesa. A pesar de la insistencia de su madre para que se case con un hombre rico, Elizabeth desea casarse por amor. Cuando conoce al apuesto y rico Señor Darcy, las chispas vuelan, pero el orgullo de él y los prejuicios de ella amenazan con mantenerlos separados.', 'Disponible', '2025-04-08 01:49:51'),
+(33, 'Kindred: Lazos de sangre', 25, 3, 2, 5, '9788433960177', '1979', 2, 2, 'img/libros/67f4818da917a.jpg', 'Dana, una mujer afroamericana moderna, es inexplicablemente transportada desde 1976 a una plantación de la Maryland anterior a la Guerra Civil. Allí se encuentra con sus antepasados: un esclavo negro y su amo blanco. Cada vez que la vida de su antepasado está en peligro, Dana es llevada a través del tiempo para salvarlo.', 'Disponible', '2025-04-08 01:49:51'),
+(34, 'La peste', 26, 4, 1, 2, '9788420674292', '1947', 3, 1, 'img/libros/67f481ba57800.jpg', 'Ambientada en los años 40 en Orán, una ciudad cerrada a causa de una epidemia de peste que asola a la población. La novela narra la lucha contra la enfermedad por parte del doctor Rieux y otros personajes, convirtiéndose en una metáfora sobre el mal y la condición humana.', 'Disponible', '2025-04-08 01:49:51');
 
 -- --------------------------------------------------------
 
@@ -318,41 +319,50 @@ CREATE TABLE `prestamos` (
   `fecha_devolucion_real` date DEFAULT NULL,
   `estado` enum('Pendiente','Aprobado','Rechazado','Prestado','Devuelto','Atrasado') DEFAULT 'Pendiente',
   `observaciones` text DEFAULT NULL,
-  `observaciones_devolucion` text DEFAULT NULL
+  `observaciones_devolucion` text DEFAULT NULL,
+  `comentario_revision` text DEFAULT NULL,
+  `id_usuario_aprobacion` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `prestamos`
 --
 
-INSERT INTO `prestamos` (`id_prestamo`, `id_libro`, `id_cliente`, `id_usuario`, `fecha_prestamo`, `fecha_devolucion_esperada`, `fecha_devolucion_real`, `estado`, `observaciones`, `observaciones_devolucion`) VALUES
-(4, 4, 4, 1, '2025-01-31 18:02:11', '2025-01-17', '2025-01-24', 'Devuelto', NULL, NULL),
-(5, 1, 1, 1, '2025-02-01 22:36:54', '2025-02-08', '2025-02-01', 'Devuelto', '\nDevuelto el 2025-02-01', NULL),
-(6, 2, 5, 1, '2025-02-03 04:53:14', '2025-02-09', '2025-02-03', 'Devuelto', '', NULL),
-(7, 5, 1, 1, '2025-02-03 19:20:23', '2025-02-10', '2025-02-03', 'Devuelto', '', NULL),
-(8, 6, 1, NULL, '2025-02-04 02:15:52', '2025-02-10', '2025-02-03', 'Devuelto', NULL, NULL),
-(9, 5, 6, NULL, '2025-02-04 05:27:33', '2025-02-10', '2025-02-03', 'Devuelto', NULL, ''),
-(10, 5, 6, NULL, '2025-02-04 05:34:15', '2025-02-10', '2025-02-03', 'Devuelto', NULL, ''),
-(11, 5, 1, NULL, '2025-02-04 20:17:38', '2025-02-11', '2025-02-05', 'Devuelto', NULL, NULL),
-(12, 22, 7, NULL, '2025-02-06 23:28:23', '2025-02-13', '2025-02-20', 'Devuelto', NULL, NULL),
-(13, 23, 7, NULL, '2025-02-21 00:54:00', '2025-03-06', '2025-02-20', 'Devuelto', 'Devuelto el 2025-02-20: ', NULL),
-(14, 22, 1, NULL, '2025-03-07 04:04:42', '2025-03-13', '2025-03-06', 'Devuelto', 'Devuelto el 2025-03-06: ', NULL),
-(15, 22, 9, NULL, '2025-03-12 22:35:23', '2025-03-19', '2025-04-01', 'Devuelto', NULL, NULL),
-(16, 5, 9, NULL, '2025-03-12 22:36:50', '2025-03-19', '2025-04-01', 'Devuelto', NULL, NULL),
-(17, 5, 9, NULL, '2025-04-02 04:40:07', '2025-04-08', '2025-04-01', 'Devuelto', 'Devuelto el 2025-04-01: ', NULL),
-(18, 5, 9, NULL, '2025-04-02 04:41:26', '2025-04-08', '2025-04-01', 'Devuelto', NULL, NULL),
-(19, 28, 10, NULL, '2025-04-02 05:24:55', '2025-04-08', '2025-04-01', 'Devuelto', 'Devuelto el 2025-04-01: ', NULL),
-(20, 5, 10, NULL, '2025-04-02 05:26:08', '2025-04-08', '2025-04-01', 'Devuelto', 'Devuelto el 2025-04-01: ', NULL),
-(21, 5, 10, NULL, '2025-04-02 05:27:22', '2025-04-08', '2025-04-01', 'Devuelto', 'Devuelto el 2025-04-01: ', NULL),
-(22, 10, 10, NULL, '2025-04-02 05:27:46', '2025-04-08', '2025-04-01', 'Devuelto', 'Devuelto el 2025-04-01: ', NULL),
-(23, 5, 10, NULL, '2025-04-02 05:33:03', '2025-04-08', '2025-04-01', 'Devuelto', 'Devuelto el 2025-04-01: ', NULL),
-(24, 28, 10, NULL, '2025-04-02 05:33:46', '2025-04-08', '2025-04-01', 'Devuelto', 'Devuelto el 2025-04-01: ', NULL),
-(25, 22, 9, NULL, '2025-04-02 16:52:58', '2025-04-09', '2025-04-02', 'Devuelto', 'Préstamo realizado desde carrito\nDevuelto el 2025-04-02: ', NULL),
-(26, 23, 9, NULL, '2025-04-02 16:52:58', '2025-04-09', '2025-04-02', 'Devuelto', 'Préstamo realizado desde carrito\nDevuelto el 2025-04-02: ', NULL),
-(27, 22, 9, NULL, '2025-04-02 22:38:18', '2025-04-09', '2025-04-02', 'Devuelto', 'Préstamo realizado desde carrito', NULL),
-(28, 23, 9, NULL, '2025-04-02 22:38:18', '2025-04-09', '2025-04-02', 'Devuelto', 'Préstamo realizado desde carrito\nDevuelto el 2025-04-02: muy buen libro lo recomiendo', NULL),
-(29, 25, 9, NULL, '2025-04-02 22:49:11', '2025-04-09', NULL, 'Prestado', NULL, NULL),
-(30, 22, 9, NULL, '2025-04-03 04:31:21', '2025-04-09', NULL, 'Pendiente', 'Solicitud realizada desde carrito, pendiente de aprobación', NULL);
+INSERT INTO `prestamos` (`id_prestamo`, `id_libro`, `id_cliente`, `id_usuario`, `fecha_prestamo`, `fecha_devolucion_esperada`, `fecha_devolucion_real`, `estado`, `observaciones`, `observaciones_devolucion`, `comentario_revision`, `id_usuario_aprobacion`) VALUES
+(4, 4, 4, 1, '2025-01-31 18:02:11', '2025-01-17', '2025-01-24', 'Devuelto', NULL, NULL, NULL, NULL),
+(5, 1, 1, 1, '2025-02-01 22:36:54', '2025-02-08', '2025-02-01', 'Devuelto', '\nDevuelto el 2025-02-01', NULL, NULL, NULL),
+(6, 2, 5, 1, '2025-02-03 04:53:14', '2025-02-09', '2025-02-03', 'Devuelto', '', NULL, NULL, NULL),
+(7, 5, 1, 1, '2025-02-03 19:20:23', '2025-02-10', '2025-02-03', 'Devuelto', '', NULL, NULL, NULL),
+(8, 6, 1, NULL, '2025-02-04 02:15:52', '2025-02-10', '2025-02-03', 'Devuelto', NULL, NULL, NULL, NULL),
+(9, 5, 6, NULL, '2025-02-04 05:27:33', '2025-02-10', '2025-02-03', 'Devuelto', NULL, '', NULL, NULL),
+(10, 5, 6, NULL, '2025-02-04 05:34:15', '2025-02-10', '2025-02-03', 'Devuelto', NULL, '', NULL, NULL),
+(11, 5, 1, NULL, '2025-02-04 20:17:38', '2025-02-11', '2025-02-05', 'Devuelto', NULL, NULL, NULL, NULL),
+(12, 22, 7, NULL, '2025-02-06 23:28:23', '2025-02-13', '2025-02-20', 'Devuelto', NULL, NULL, NULL, NULL),
+(13, 23, 7, NULL, '2025-02-21 00:54:00', '2025-03-06', '2025-02-20', 'Devuelto', 'Devuelto el 2025-02-20: ', NULL, NULL, NULL),
+(14, 22, 1, NULL, '2025-03-07 04:04:42', '2025-03-13', '2025-03-06', 'Devuelto', 'Devuelto el 2025-03-06: ', NULL, NULL, NULL),
+(15, 22, 9, NULL, '2025-03-12 22:35:23', '2025-03-19', '2025-04-01', 'Devuelto', NULL, NULL, NULL, NULL),
+(16, 5, 9, NULL, '2025-03-12 22:36:50', '2025-03-19', '2025-04-01', 'Devuelto', NULL, NULL, NULL, NULL),
+(17, 5, 9, NULL, '2025-04-02 04:40:07', '2025-04-08', '2025-04-01', 'Devuelto', 'Devuelto el 2025-04-01: ', NULL, NULL, NULL),
+(18, 5, 9, NULL, '2025-04-02 04:41:26', '2025-04-08', '2025-04-01', 'Devuelto', NULL, NULL, NULL, NULL),
+(19, 28, 10, NULL, '2025-04-02 05:24:55', '2025-04-08', '2025-04-01', 'Devuelto', 'Devuelto el 2025-04-01: ', NULL, NULL, NULL),
+(20, 5, 10, NULL, '2025-04-02 05:26:08', '2025-04-08', '2025-04-01', 'Devuelto', 'Devuelto el 2025-04-01: ', NULL, NULL, NULL),
+(21, 5, 10, NULL, '2025-04-02 05:27:22', '2025-04-08', '2025-04-01', 'Devuelto', 'Devuelto el 2025-04-01: ', NULL, NULL, NULL),
+(22, 10, 10, NULL, '2025-04-02 05:27:46', '2025-04-08', '2025-04-01', 'Devuelto', 'Devuelto el 2025-04-01: ', NULL, NULL, NULL),
+(23, 5, 10, NULL, '2025-04-02 05:33:03', '2025-04-08', '2025-04-01', 'Devuelto', 'Devuelto el 2025-04-01: ', NULL, NULL, NULL),
+(24, 28, 10, NULL, '2025-04-02 05:33:46', '2025-04-08', '2025-04-01', 'Devuelto', 'Devuelto el 2025-04-01: ', NULL, NULL, NULL),
+(25, 22, 9, NULL, '2025-04-02 16:52:58', '2025-04-09', '2025-04-02', 'Devuelto', 'Préstamo realizado desde carrito\nDevuelto el 2025-04-02: ', NULL, NULL, NULL),
+(26, 23, 9, NULL, '2025-04-02 16:52:58', '2025-04-09', '2025-04-02', 'Devuelto', 'Préstamo realizado desde carrito\nDevuelto el 2025-04-02: ', NULL, NULL, NULL),
+(27, 22, 9, NULL, '2025-04-02 22:38:18', '2025-04-09', '2025-04-02', 'Devuelto', 'Préstamo realizado desde carrito', NULL, NULL, NULL),
+(28, 23, 9, NULL, '2025-04-02 22:38:18', '2025-04-09', '2025-04-02', 'Devuelto', 'Préstamo realizado desde carrito\nDevuelto el 2025-04-02: muy buen libro lo recomiendo', NULL, NULL, NULL),
+(29, 25, 9, NULL, '2025-04-02 22:49:11', '2025-04-09', '2025-04-03', 'Devuelto', 'Devuelto el 2025-04-03: ', NULL, NULL, NULL),
+(30, 22, 9, NULL, '2025-04-03 04:31:21', '2025-04-09', '2025-04-03', 'Devuelto', 'Solicitud realizada desde carrito, pendiente de aprobación\nDevuelto el 2025-04-03: ', NULL, '', 1),
+(31, 22, 9, NULL, '2025-04-03 06:06:04', '2025-04-10', '2025-04-08', 'Devuelto', 'Solicitud realizada desde carrito, pendiente de aprobación', NULL, '1', 14),
+(32, 23, 9, NULL, '2025-04-03 06:06:04', '2025-04-10', '2025-04-08', 'Devuelto', 'Solicitud realizada desde carrito, pendiente de aprobación', NULL, '1', 14),
+(33, 1, 9, 1, '2025-04-03 21:31:25', '2025-04-10', '2025-04-08', 'Devuelto', '', NULL, '', 1),
+(34, 22, 1, NULL, '2025-04-04 00:29:37', '2025-04-10', NULL, 'Rechazado', 'Solicitud realizada desde carrito, pendiente de aprobación', NULL, '', 1),
+(35, 34, 9, NULL, '2025-04-08 18:48:12', '2025-04-22', NULL, 'Prestado', 'Solicitud pendiente de aprobación por personal de biblioteca', NULL, '', 1),
+(36, 5, 9, NULL, '2025-04-08 19:12:17', '2025-04-22', NULL, 'Pendiente', 'Solicitud realizada desde carrito, pendiente de aprobación', NULL, NULL, NULL),
+(37, 32, 9, NULL, '2025-04-08 19:12:17', '2025-04-22', NULL, 'Pendiente', 'Solicitud realizada desde carrito, pendiente de aprobación', NULL, NULL, NULL);
 
 --
 -- Disparadores `prestamos`
@@ -440,7 +450,7 @@ CREATE TABLE `usuarios` (
 
 INSERT INTO `usuarios` (`id_usuario`, `nombre`, `apellido`, `email`, `password`, `id_rol`, `fecha_registro`, `estado`) VALUES
 (1, 'Adminn', 'Sistema', 'admin@biblioteca.com', '$2y$10$/UWmkwBpV8.3AGNh51h6OOTeAokGd/PZ1z0.uUbE5d2NKoM4irlw.', 1, '2025-01-31 05:08:07', 'Activo'),
-(14, 'bibliotecario', 'Sistema', 'biblioteca@biblioteca.com', '$2y$10$szB6ZWn3FkPyts1BdEYhLu9yM3DVa99hvsKxghC4PAD5VbMjO3wm2', 2, '2025-02-01 20:09:48', 'Activo'),
+(14, 'bibliotecario', 'Sistema', 'biblioteca@biblioteca.com', '$2y$10$sN7g9LrT.RMTEllC02Cp7enFxez/FkW6Wk3q/E/owi0wq48SOuhAO', 2, '2025-02-01 20:09:48', 'Activo'),
 (15, 'ddd', 'Pérez', '1sss@g.com', '$2y$10$S3TG1IydZlrn1Bv8hvN4GORVriF0.ZfXiwxgoKMy6QwKrGROsgb6u', 2, '2025-02-02 00:00:19', 'Activo');
 
 --
@@ -528,7 +538,8 @@ ALTER TABLE `prestamos`
   ADD PRIMARY KEY (`id_prestamo`),
   ADD KEY `id_libro` (`id_libro`),
   ADD KEY `id_cliente` (`id_cliente`),
-  ADD KEY `id_usuario` (`id_usuario`);
+  ADD KEY `id_usuario` (`id_usuario`),
+  ADD KEY `fk_usuario_aprobacion` (`id_usuario_aprobacion`);
 
 --
 -- Indices de la tabla `roles`
@@ -552,13 +563,13 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `autores`
 --
 ALTER TABLE `autores`
-  MODIFY `id_autor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id_autor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT de la tabla `carrito_prestamos`
 --
 ALTER TABLE `carrito_prestamos`
-  MODIFY `id_carrito` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id_carrito` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT de la tabla `categorias`
@@ -594,7 +605,7 @@ ALTER TABLE `generos`
 -- AUTO_INCREMENT de la tabla `libros`
 --
 ALTER TABLE `libros`
-  MODIFY `id_libro` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id_libro` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT de la tabla `password_resets`
@@ -612,7 +623,7 @@ ALTER TABLE `password_reset_tokens`
 -- AUTO_INCREMENT de la tabla `prestamos`
 --
 ALTER TABLE `prestamos`
-  MODIFY `id_prestamo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id_prestamo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT de la tabla `roles`
@@ -668,6 +679,7 @@ ALTER TABLE `password_resets`
 -- Filtros para la tabla `prestamos`
 --
 ALTER TABLE `prestamos`
+  ADD CONSTRAINT `fk_usuario_aprobacion` FOREIGN KEY (`id_usuario_aprobacion`) REFERENCES `usuarios` (`id_usuario`),
   ADD CONSTRAINT `prestamos_ibfk_1` FOREIGN KEY (`id_libro`) REFERENCES `libros` (`id_libro`),
   ADD CONSTRAINT `prestamos_ibfk_2` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id_cliente`),
   ADD CONSTRAINT `prestamos_ibfk_3` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`);
